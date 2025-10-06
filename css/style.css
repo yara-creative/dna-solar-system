@@ -63,10 +63,10 @@ canvas {
     font-size: 14px;
     line-height: 1.6;
     letter-spacing: 0.3px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     opacity: 1;
     transition: opacity 0.5s ease;
-    padding-bottom: 40px;
+    padding-bottom: 0px;
 }
 #claude-attribution {
     position: fixed;
@@ -119,19 +119,34 @@ canvas {
     border: 2px dashed #999;
     border-radius: 8px;
     padding: 40px;
+    margin-top: 10px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: rgba(0, 0, 0, 0.02);
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(142, 68, 173, 0.15) 25%, rgba(52, 152, 219, 0.15) 50%, rgba(26, 188, 156, 0.15) 75%, rgba(243, 156, 18, 0.15) 100%);
 }
 #upload-area:hover {
     border-color: #666;
-    background: rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.25) 0%, rgba(142, 68, 173, 0.25) 25%, rgba(52, 152, 219, 0.25) 50%, rgba(26, 188, 156, 0.25) 75%, rgba(243, 156, 18, 0.25) 100%);
 }
 #upload-area.dragover {
     border-color: #333;
-    background: rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.35) 0%, rgba(142, 68, 173, 0.35) 25%, rgba(52, 152, 219, 0.35) 50%, rgba(26, 188, 156, 0.35) 75%, rgba(243, 156, 18, 0.35) 100%);
     transform: scale(1.02);
+}
+.iridescent-title {
+    background: linear-gradient(135deg, #ff6b9d, #8e44ad, #3498db, #1abc9c, #f39c12);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    animation: iridescent-shift 3s ease infinite;
+}
+@keyframes iridescent-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 #upload-text {
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;

@@ -231,7 +231,7 @@ async function handleFileUpload(file) {
         }, 500);
         
         textContent.classList.add('fade-in');
-        textContent.innerHTML = analysisResult || 'Your DNA Solar System<br><br>Explore the unique set of planets generated from your DNA sequence - one of over 10 million possibilities!<br><br>Click on any planet to learn insights about your DNA.';
+        textContent.innerHTML = analysisResult || '<span class="iridescent-title">Your DNA Solar System</span><br><br>Explore your personal planet artwork generated from your DNA sequence - one of 2 million+ possibilities!<br><br>Click on a planet to learn insights about your DNA.<br><br>Click the camera icon anytime to save snapshots of your artwork!';
         
         downloadBtn.classList.add('visible');
         
@@ -800,11 +800,11 @@ function updateTextPanel(objData) {
     const categories = [
         { name: 'Origins', subtitle: 'Your DNA ancestry' },
         { name: 'Mind', subtitle: 'How you think, feel, and focus' },
-        { name: 'Body', subtitle: 'Your strength, endurance, and recovery' },
+        { name: 'Performance', subtitle: 'Your strength, endurance, and recovery' },
         { name: 'Nutrition', subtitle: 'How your body processes food & nutrients' },
-        { name: 'Sleep', subtitle: 'Your sleep, energy, and daily cycles' },
+        { name: 'Health', subtitle: 'Important health markers' },
         { name: 'Senses', subtitle: 'Visible traits & sensory quirks' },
-        { name: 'Resilience', subtitle: 'Ability to repair & longevity' }
+        { name: 'Longevity', subtitle: 'Ability to repair & longevity' }
     ];
     
     const index = circleObjects.indexOf(objData);
@@ -828,18 +828,18 @@ function zoomOut() {
     
     document.getElementById('back-btn').classList.remove('active');
     
-    document.getElementById('text-content').innerHTML = 'Your DNA Solar System<br><br>Explore the unique set of planets generated from your DNA sequence - one of over 10 million possibilities!<br><br>Click on any planet to learn insights about your DNA.';
+    document.getElementById('text-content').innerHTML = '<span class="iridescent-title">Your DNA Solar System</span><br><br>Explore your personal planet artwork generated from your DNA sequence - one of 2 million+ possibilities!<br><br>Click on a planet to learn insights about your DNA.<br><br>Click the camera icon anytime to save snapshots of your artwork!';
 }
 
 function showHoverLabel(objData) {
     const categories = [
         { name: 'Origins' },
         { name: 'Mind' },
-        { name: 'Body' },
+        { name: 'Performance' },
         { name: 'Nutrition' },
-        { name: 'Sleep' },
+        { name: 'Health' },
         { name: 'Senses' },
-        { name: 'Resilience' }
+        { name: 'Longevity' }
     ];
     
     const index = circleObjects.indexOf(objData);
