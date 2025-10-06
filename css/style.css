@@ -1,0 +1,215 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+button[title] {
+    --tooltip-delay: 0ms !important;
+}
+button[title]:hover {
+    --tooltip-delay: 0ms !important;
+}
+canvas {
+    display: block;
+    width: 60vw !important;
+    height: 100vh !important;
+}
+#back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    user-select: none;
+    touch-action: manipulation;
+}
+#back-btn.active {
+    opacity: 1;
+    pointer-events: all;
+}
+#back-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+#back-btn:active {
+    transform: scale(0.95);
+}
+#text-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 40vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 50;
+}
+#text-content {
+    color: #000000;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    margin-bottom: 30px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    padding-bottom: 40px;
+}
+#claude-attribution {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    z-index: 100;
+    pointer-events: none;
+}
+#download-btn {
+    position: fixed;
+    bottom: 20px;
+    right: calc(40vw - 160px);
+    padding: 10px 20px;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    background: rgba(102, 126, 234, 0.9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, background 0.3s ease, transform 0.2s ease;
+    z-index: 100;
+}
+#download-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+#download-btn:hover {
+    background: rgba(102, 126, 234, 1);
+    transform: translateY(-2px);
+}
+#download-btn:active {
+    transform: translateY(0);
+}
+#text-content.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+#upload-area {
+    border: 2px dashed #999;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.02);
+}
+#upload-area:hover {
+    border-color: #666;
+    background: rgba(0, 0, 0, 0.05);
+}
+#upload-area.dragover {
+    border-color: #333;
+    background: rgba(0, 0, 0, 0.08);
+    transform: scale(1.02);
+}
+#upload-text {
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #666;
+}
+#file-input {
+    display: none;
+}
+#audio-toggle {
+    position: fixed;
+    top: 20px;
+    right: calc(40vw + 20px);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+#audio-toggle:hover {
+    background: white;
+    transform: scale(1.1);
+}
+#camera-btn {
+    position: fixed;
+    bottom: 20px;
+    left: calc(60vw - 60px);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+#camera-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+#loading-container {
+    display: none;
+    margin-top: 20px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+#loading-container.fade-out {
+    opacity: 0;
+}
+#loading-text {
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+#loading-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+#loading-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}

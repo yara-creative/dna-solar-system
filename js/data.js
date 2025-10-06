@@ -1,0 +1,119 @@
+// ============================================
+// DNA FILTERING LOGIC
+// ============================================
+
+const analysisRsids = new Set([
+  'rs1015362', 'rs10246939', 'rs1032507', 'rs1042602', 'rs1042713', 'rs1042714',
+  'rs10427255', 'rs1047972', 'rs10484554', 'rs1051266', 'rs1051730', 'rs1061170',
+  'rs10757274', 'rs10757278', 'rs10811661', 'rs10830963', 'rs1110400', 'rs11209026',
+  'rs1121980', 'rs1128503', 'rs1129038', 'rs11549407', 'rs11571833', 'rs12203592',
+  'rs12248560', 'rs12255372', 'rs1229984', 'rs12785878', 'rs12821256', 'rs12896399',
+  'rs12913832', 'rs12979860', 'rs1333049', 'rs1393350', 'rs1421085', 'rs1426654',
+  'rs1544410', 'rs1570669', 'rs1667394', 'rs16891982', 'rs16969968', 'rs1726866',
+  'rs17300539', 'rs174537', 'rs174570', 'rs174575', 'rs17580', 'rs17782313',
+  'rs17822931', 'rs1799913', 'rs1799945', 'rs1799971', 'rs1799990', 'rs1800012',
+  'rs1800407', 'rs1800497', 'rs1800562', 'rs1800629', 'rs1800795', 'rs1800896',
+  'rs1800975', 'rs1801131', 'rs1801133', 'rs1801260', 'rs1801282', 'rs1801394',
+  'rs1805007', 'rs1805008', 'rs1815739', 'rs2070744', 'rs2075650', 'rs2108622',
+  'rs2234693', 'rs231775', 'rs260690', 'rs2802292', 'rs2814778', 'rs2832407',
+  'rs28357377', 'rs28357981', 'rs28358280', 'rs28358584', 'rs28399504', 'rs2853826',
+  'rs2854128', 'rs2857285', 'rs28777', 'rs28897756', 'rs28929474', 'rs28931614',
+  'rs28940579', 'rs28940580', 'rs3024505', 'rs3088053', 'rs324420', 'rs33950507',
+  'rs33971440', 'rs34451549', 'rs35004220', 'rs35705950', 'rs35724775', 'rs3811647',
+  'rs3827760', 'rs405509', 'rs4149056', 'rs429358', 'rs4420638', 'rs4422110',
+  'rs4680', 'rs4712652', 'rs4988235', 'rs4994', 'rs5030737', 'rs5030868', 'rs5082',
+  'rs5219', 'rs53576', 'rs5443', 'rs5882', 'rs601338', 'rs602662', 'rs6265',
+  'rs6295', 'rs6313', 'rs6314', 'rs6544713', 'rs671', 'rs6746030', 'rs6983267',
+  'rs699', 'rs7041', 'rs713598', 'rs7216389', 'rs72474224', 'rs72552763', 'rs731236',
+  'rs73598374', 'rs7412', 'rs75932628', 'rs762551', 'rs7754840', 'rs776746',
+  'rs7775228', 'rs7903146', 'rs8192678', 'rs885479', 'rs9264942', 'rs9340799',
+  'rs9536314', 'rs9923231', 'rs9939609'
+, "rs1800498", "rs1800955", "rs1799732", "rs6311", "rs4570625", "rs25531", "rs4795541", "rs1360780", "rs460397", "rs228697", "rs17601612", "rs2470893", "rs5186", "rs1799752", "rs4343", "rs12749581", "rs7975232", "rs2187668", "rs7454108", "rs1695", "rs1050450", "rs4880", "rs1256049", "rs2479106", "rs13405728", "rs6259", "rs1799941", "rs1805005", "rs2590498", "rs6025", "rs1799963", "rs965513", "rs2238151"]);
+
+function filterDNAFile(fileContent) {
+  const lines = fileContent.split('\n');
+  const header = lines[0];
+  const filteredLines = [header];
+  
+  let originalCount = 0;
+  let filteredCount = 0;
+  
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line || line.startsWith('#')) continue;
+    
+    originalCount++;
+    const rsid = line.split(/[\t\s]+/)[0];
+    
+    if (analysisRsids.has(rsid)) {
+      filteredLines.push(line);
+      filteredCount++;
+    }
+  }
+  
+  const filteredContent = filteredLines.join('\n');
+  const reduction = ((1 - filteredCount / originalCount) * 100).toFixed(1);
+  
+  return {
+    filteredContent,
+    originalCount,
+    filteredCount,
+    reduction
+  };
+}
+
+async function analyzeDNAWithClaude(filteredContent) {
+    const apiKey = 'YOUR_CLAUDE_API_KEY'; // Replace with your API key
+    
+    // Simulate loading progress
+    const loadingBar = document.getElementById('loading-bar');
+    loadingBar.style.width = '30%';
+    
+    const prompt = `[DNA ANALYSIS PROMPT - TO BE CUSTOMIZED]
+    
+Analyze the following filtered DNA data and provide insights across these 7 categories:
+1. Origins - DNA ancestry
+2. Mind - Cognitive patterns, focus, mental health predispositions
+3. Body - Physical traits, strength, endurance, recovery
+4. Nutrition - Nutrient processing, dietary sensitivities
+5. Sleep - Sleep patterns, energy, circadian rhythms
+6. Senses - Physical appearance, sensory traits
+7. Resilience - Repair mechanisms, longevity factors
+
+DNA Data:
+${filteredContent}
+
+Provide detailed, personalized insights for each category.`;
+
+    loadingBar.style.width = '60%';
+    
+    try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apiKey,
+                'anthropic-version': '2023-06-01'
+            },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 4096,
+                messages: [{
+                    role: 'user',
+                    content: prompt
+                }]
+            })
+        });
+        
+        loadingBar.style.width = '90%';
+        
+        const data = await response.json();
+        loadingBar.style.width = '100%';
+        
+        return data.content[0].text;
+    } catch (error) {
+        console.error('Claude API error:', error);
+        loadingBar.style.width = '100%';
+        return 'Analysis complete. Click on objects to explore your DNA insights.';
+    }
+}
