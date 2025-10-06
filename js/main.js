@@ -831,6 +831,59 @@ function zoomOut() {
     document.getElementById('text-content').innerHTML = 'Your DNA Solar System<br><br>Explore the unique set of planets generated from your DNA sequence - one of over 10 million possibilities!<br><br>Click on any planet to learn insights about your DNA.';
 }
 
+function showHoverLabel(objData) {
+    const categories = [
+        { name: 'Origins' },
+        { name: 'Mind' },
+        { name: 'Body' },
+        { name: 'Nutrition' },
+        { name: 'Sleep' },
+        { name: 'Senses' },
+        { name: 'Resilience' }
+    ];
+    
+    const index = circleObjects.indexOf(objData);
+    const category = categories[index];
+    
+    let label = document.getElementById('hover-label');
+    if (!label) {
+        label = document.createElement('div');
+        label.id = 'hover-label';
+        label.style.position = 'fixed';
+        label.style.background = 'rgba(0, 0, 0, 0.8)';
+        label.style.color = 'white';
+        label.style.padding = '8px 16px';
+        label.style.borderRadius = '6px';
+        label.style.fontFamily = "'Menlo', 'Monaco', 'Courier New', monospace";
+        label.style.fontSize = '14px';
+        label.style.fontWeight = 'bold';
+        label.style.pointerEvents = 'none';
+        label.style.zIndex = '2000';
+        label.style.transition = 'opacity 0.2s ease';
+        document.body.appendChild(label);
+    }
+    
+    label.textContent = category.name;
+    label.style.opacity = '1';
+    
+    const objPos = objData.mesh.position.clone();
+    objPos.project(camera);
+    
+    const canvasWidth = window.innerWidth * 0.6;
+    const x = (objPos.x * 0.5 + 0.5) * canvasWidth;
+    const y = (-objPos.y * 0.5 + 0.5) * window.innerHeight;
+    
+    label.style.left = (x + 30) + 'px';
+    label.style.top = (y - 20) + 'px';
+}
+
+function hideHoverLabel() {
+    const label = document.getElementById('hover-label');
+    if (label) {
+        label.style.opacity = '0';
+    }
+}
+
 function animate() {
     requestAnimationFrame(animate);
     time += 0.01;
@@ -880,9 +933,11 @@ function animate() {
             if (objData && objData.parent) {
                 objData.parent.targetScale = 1.3;
                 document.body.style.cursor = 'pointer';
+                showHoverLabel(objData.parent);
             }
         } else {
             document.body.style.cursor = 'default';
+            hideHoverLabel();
         }
     }
 
