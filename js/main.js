@@ -242,38 +242,113 @@ async function handleFileUpload(file) {
 }
 
 function createDNAHelix() {
-    dnaHelix = new THREE.Group();
-    
-    const height = 10;
-    const radius = 1.5;
-    const particleCount = 200;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const t = i / particleCount;
-        const y = (t - 0.5) * height;
-        const angle = t * Math.PI * 8;
-        
-        const geometry = new THREE.SphereGeometry(0.08, 8, 8);
-        const material = new THREE.MeshStandardMaterial({
-            color: t < 0.5 ? 0xff6b9d : 0x3498db,
-            roughness: 0.5,
-            metalness: 0.3
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        
-        sphere.position.set(
-            Math.cos(angle) * radius,
-            y,
-            Math.sin(angle) * radius
-        );
-        
-        sphere.castShadow = true;
-        dnaHelix.add(sphere);
-        dnaParticles.push(sphere);
+  dnaHelix = new THREE.Group();
+
+  const height = 10;
+  const radius = 2;
+  const segments = 50;
+  const turns = 2.5;
+
+  const matBlack = new THREE.MeshPhysicalMaterial({
+    color: 0x2c2c2c,
+    metalness: 0.9,
+    roughness: 0.1,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.15
+  });
+
+  const matBackbone = new THREE.MeshPhysicalMaterial({
+    color: 0x3a3a3a,
+    metalness: 0.8,
+    roughness: 0.2
+  });
+
+  const matRung = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 1.0,
+    roughness: 0.2
+  });
+
+  const sphereGeo = new THREE.SphereGeometry(0.15, 16, 16);
+
+  const positions1 = [];
+  const positions2 = [];
+
+  for (let i = 0; i < segments; i++) {
+    const t = i / segments;
+    const y = (t - 0.5) * height;
+    const angle = t * Math.PI * 2 * turns;
+
+    const x1 = Math.cos(angle) * radius;
+    const z1 = Math.sin(angle) * radius;
+    const x2 = Math.cos(angle + Math.PI) * radius;
+    const z2 = Math.sin(angle + Math.PI) * radius;
+
+    positions1.push({ x: x1, y: y, z: z1 });
+    positions2.push({ x: x2, y: y, z: z2 });
+
+    const sphere1 = new THREE.Mesh(sphereGeo, matBlack);
+    sphere1.position.set(x1, y, z1);
+    dnaHelix.add(sphere1);
+
+    const sphere2 = new THREE.Mesh(sphereGeo, matBlack);
+    sphere2.position.set(x2, y, z2);
+    dnaHelix.add(sphere2);
+
+    if (i > 0) {
+      const prev1 = positions1[i - 1];
+      const curr1 = positions1[i];
+      const dist1 = Math.sqrt(
+        Math.pow(curr1.x - prev1.x, 2) +
+        Math.pow(curr1.y - prev1.y, 2) +
+        Math.pow(curr1.z - prev1.z, 2)
+      );
+      const backboneGeo1 = new THREE.CylinderGeometry(0.05, 0.05, dist1, 8);
+      const backbone1 = new THREE.Mesh(backboneGeo1, matBackbone);
+      backbone1.position.set(
+        (curr1.x + prev1.x) / 2,
+        (curr1.y + prev1.y) / 2,
+        (curr1.z + prev1.z) / 2
+      );
+      backbone1.lookAt(new THREE.Vector3(prev1.x, prev1.y, prev1.z));
+      backbone1.rotateX(Math.PI / 2);
+      dnaHelix.add(backbone1);
+
+      const prev2 = positions2[i - 1];
+      const curr2 = positions2[i];
+      const dist2 = Math.sqrt(
+        Math.pow(curr2.x - prev2.x, 2) +
+        Math.pow(curr2.y - prev2.y, 2) +
+        Math.pow(curr2.z - prev2.z, 2)
+      );
+      const backboneGeo2 = new THREE.CylinderGeometry(0.05, 0.05, dist2, 8);
+      const backbone2 = new THREE.Mesh(backboneGeo2, matBackbone);
+      backbone2.position.set(
+        (curr2.x + prev2.x) / 2,
+        (curr2.y + prev2.y) / 2,
+        (curr2.z + prev2.z) / 2
+      );
+      backbone2.lookAt(new THREE.Vector3(prev2.x, prev2.y, prev2.z));
+      backbone2.rotateX(Math.PI / 2);
+      dnaHelix.add(backbone2);
     }
-    
-    dnaHelix.position.y = 0;
-    scene.add(dnaHelix);
+
+    if (i % 3 === 0) {
+      const dist = Math.sqrt(
+        Math.pow(x2 - x1, 2) +
+        Math.pow(z2 - z1, 2)
+      );
+      const rungGeo = new THREE.CylinderGeometry(0.04, 0.04, dist, 8);
+      const rung = new THREE.Mesh(rungGeo, matRung);
+      rung.position.set((x1 + x2) / 2, y, (z1 + z2) / 2);
+      rung.lookAt(new THREE.Vector3(x2, y, z2));
+      rung.rotateX(Math.PI / 2);
+      dnaHelix.add(rung);
+    }
+  }
+
+  dnaHelix.position.y = 0;
+  scene.add(dnaHelix);
 }
 
 function startTransition() {
