@@ -83,18 +83,50 @@ console.log(`✅ Loaded ${analysisRsids.size} hardcoded rsids for DNA filtering`
 function filterDNAFile(fileContent) {
   
   const lines = fileContent.split('\n');
-  const header = lines[0];
-  const filteredLines = [header];
+  
+  let headerLine = null;
+  let delimiter = null;
+  let firstDataLineIndex = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line || line.startsWith('#')) continue;
+    
+    if (!headerLine) {
+      headerLine = lines[i];
+      firstDataLineIndex = i + 1;
+      
+      if (line.includes(',')) {
+        delimiter = ',';
+        console.log('📄 Detected CSV format (comma-delimited)');
+      } else {
+        delimiter = /[\t\s]+/;
+        console.log('📄 Detected TSV format (tab/space-delimited)');
+      }
+      break;
+    }
+  }
+  
+  const filteredLines = [headerLine];
   
   let originalCount = 0;
   let filteredCount = 0;
   
-  for (let i = 1; i < lines.length; i++) {
+  const stripQuotes = (str) => {
+    return str.replace(/^["']|["']$/g, '');
+  };
+  
+  for (let i = firstDataLineIndex; i < lines.length; i++) {
     const line = lines[i].trim();
     if (!line || line.startsWith('#')) continue;
     
     originalCount++;
-    const rsid = line.split(/[\t\s]+/)[0];
+    
+    const parts = typeof delimiter === 'string' 
+      ? line.split(delimiter) 
+      : line.split(delimiter);
+    
+    const rsid = stripQuotes(parts[0]);
     
     if (analysisRsids.has(rsid)) {
       filteredLines.push(line);

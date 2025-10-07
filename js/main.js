@@ -147,7 +147,7 @@ function init() {
         e.preventDefault();
         uploadArea.classList.remove('dragover');
         const file = e.dataTransfer.files[0];
-        if (file && file.name.endsWith('.txt')) {
+        if (file && (file.name.endsWith('.txt') || file.name.endsWith('.csv'))) {
             handleFileUpload(file);
         }
     });
@@ -188,13 +188,207 @@ function init() {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF();
 
-        const textContent = document.getElementById('text-content').innerText;
-        const lines = pdf.splitTextToSize(textContent, 180);
+        const categories = [
+            { name: 'Sleep', key: 'sleep', subtitle: 'Your sleep, energy, and daily cycles' },
+            { name: 'Mind', key: 'mind', subtitle: 'How you think, feel, and focus' },
+            { name: 'Performance', key: 'performance', subtitle: 'Your strength, endurance, and recovery' },
+            { name: 'Nutrition', key: 'nutrition', subtitle: 'How your body processes food & nutrients' },
+            { name: 'Health', key: 'health', subtitle: 'Disease risk & medical factors' },
+            { name: 'Senses', key: 'senses', subtitle: 'Visible traits & sensory quirks' },
+            { name: 'Longevity', key: 'longevity', subtitle: 'Aging & lifespan potential' }
+        ];
 
-        pdf.setFontSize(12);
-        pdf.text(lines, 15, 15);
+        let yPos = 25;
+        const pageHeight = pdf.internal.pageSize.height;
+        const margin = 20;
+        const maxWidth = 170;
 
-        pdf.save('dna_analysis.pdf');
+        const categoryColors = [
+            [255, 107, 157], // pink
+            [155, 89, 182],  // purple
+            [52, 152, 219],  // blue
+            [26, 188, 156],  // teal
+            [243, 156, 18],  // orange
+            [231, 76, 60],   // red
+            [196, 69, 105]   // dark pink
+        ];
+
+        pdf.setFillColor(142, 68, 173);
+        pdf.rect(0, 0, 210, 15, 'F');
+        
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFont('courier', 'bold');
+        pdf.setFontSize(18);
+        pdf.text('Your DNA Insights', margin, 10);
+        
+        pdf.setTextColor(0, 0, 0);
+        yPos = 25;
+
+        const parseHTML = (htmlString) => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlString;
+            tempDiv.style.display = 'none';
+            document.body.appendChild(tempDiv);
+            
+            const elements = [];
+            
+            const getAllElements = (node) => {
+                Array.from(node.childNodes).forEach(child => {
+                    if (child.nodeType === Node.ELEMENT_NODE) {
+                        const tag = child.tagName;
+                        const text = child.textContent.trim();
+                        
+                        if (!text) return;
+                        
+                        if (tag === 'P') {
+                            const hasStrong = child.querySelector('strong');
+                            const hasEm = child.querySelector('em');
+                            
+                            if (hasStrong) {
+                                elements.push({ type: 'gene-title', text: text });
+                            } else if (hasEm) {
+                                elements.push({ type: 'italic', text: text });
+                            } else {
+                                elements.push({ type: 'paragraph', text: text });
+                            }
+                        } else if (tag === 'UL') {
+                            Array.from(child.querySelectorAll('li')).forEach(li => {
+                                const liText = li.textContent.trim();
+                                if (liText) {
+                                    elements.push({ type: 'bullet', text: liText });
+                                }
+                            });
+                        } else if (tag === 'H1' || tag === 'H2' || tag === 'H3' || tag === 'H4') {
+                            elements.push({ type: 'gene-title', text: text });
+                        } else if (tag === 'DIV' || tag === 'SECTION') {
+                            getAllElements(child);
+                        } else {
+                            if (text.length > 0) {
+                                elements.push({ type: 'text', text: text });
+                            }
+                        }
+                    } else if (child.nodeType === Node.TEXT_NODE) {
+                        const text = child.textContent.trim();
+                        if (text) {
+                            elements.push({ type: 'text', text: text });
+                        }
+                    }
+                });
+            };
+            
+            getAllElements(tempDiv);
+            document.body.removeChild(tempDiv);
+            
+            console.log('Parsed elements:', elements);
+            return elements;
+        };
+
+        categories.forEach((category, catIndex) => {
+            const categoryAnalysis = window.dnaAnalysis[category.key];
+            const color = categoryColors[catIndex];
+            
+            if (yPos > pageHeight - 60) {
+                pdf.addPage();
+                yPos = 25;
+            }
+
+            pdf.setDrawColor(color[0], color[1], color[2]);
+            pdf.setLineWidth(0.5);
+            pdf.line(margin, yPos, margin + maxWidth, yPos);
+            yPos += 8;
+
+            pdf.setTextColor(color[0], color[1], color[2]);
+            pdf.setFontSize(15);
+            pdf.setFont('courier', 'bold');
+            pdf.text(category.name, margin, yPos);
+            yPos += 7;
+
+            pdf.setTextColor(100, 100, 100);
+            pdf.setFontSize(9);
+            pdf.setFont('courier', 'italic');
+            const subtitleLines = pdf.splitTextToSize(category.subtitle, maxWidth);
+            pdf.text(subtitleLines, margin, yPos);
+            yPos += subtitleLines.length * 4.5 + 6;
+            
+            pdf.setTextColor(0, 0, 0);
+
+            if (categoryAnalysis) {
+                const analysisHTML = window.dnaAnalyzer.formatForDisplay(categoryAnalysis);
+                console.log(`${category.name} HTML:`, analysisHTML);
+                const elements = parseHTML(analysisHTML);
+                console.log(`${category.name} elements:`, elements);
+                
+                elements.forEach(element => {
+                    if (yPos > pageHeight - 25) {
+                        pdf.addPage();
+                        yPos = 25;
+                    }
+
+                    if (element.type === 'gene-title') {
+                        pdf.setFillColor(245, 245, 245);
+                        const titleHeight = 7;
+                        pdf.rect(margin - 2, yPos - 5, maxWidth + 4, titleHeight, 'F');
+                        
+                        pdf.setTextColor(color[0], color[1], color[2]);
+                        pdf.setFont('courier', 'bold');
+                        pdf.setFontSize(10.5);
+                        const lines = pdf.splitTextToSize(element.text, maxWidth - 4);
+                        pdf.text(lines, margin, yPos);
+                        yPos += lines.length * 5 + 5;
+                        pdf.setTextColor(0, 0, 0);
+                    } else if (element.type === 'italic') {
+                        pdf.setFont('courier', 'italic');
+                        pdf.setFontSize(9);
+                        const lines = pdf.splitTextToSize(element.text, maxWidth);
+                        pdf.text(lines, margin, yPos);
+                        yPos += lines.length * 5 + 3;
+                    } else if (element.type === 'bullet') {
+                        pdf.setTextColor(color[0], color[1], color[2]);
+                        pdf.circle(margin + 1, yPos - 1.5, 0.8, 'F');
+                        pdf.setTextColor(0, 0, 0);
+                        
+                        pdf.setFont('courier', 'normal');
+                        pdf.setFontSize(9);
+                        const lines = pdf.splitTextToSize(element.text, maxWidth - 8);
+                        pdf.text(lines, margin + 5, yPos);
+                        yPos += lines.length * 5 + 2;
+                    } else if (element.type === 'paragraph') {
+                        pdf.setFont('courier', 'normal');
+                        pdf.setFontSize(9);
+                        const lines = pdf.splitTextToSize(element.text, maxWidth);
+                        pdf.text(lines, margin, yPos);
+                        yPos += lines.length * 5 + 3;
+                    } else if (element.type === 'text') {
+                        pdf.setFont('courier', 'normal');
+                        pdf.setFontSize(9);
+                        const lines = pdf.splitTextToSize(element.text, maxWidth);
+                        pdf.text(lines, margin, yPos);
+                        yPos += lines.length * 5 + 1.5;
+                    }
+                });
+            }
+
+            yPos += 10;
+        });
+
+        if (yPos > pageHeight - 35) {
+            pdf.addPage();
+            yPos = 25;
+        }
+
+        pdf.setFillColor(250, 250, 250);
+        pdf.rect(margin - 5, yPos - 5, maxWidth + 10, 25, 'F');
+        
+        pdf.setFontSize(7.5);
+        pdf.setFont('courier', 'italic');
+        pdf.setTextColor(100, 100, 100);
+        const disclaimer = 'DISCLAIMER: This tool is for entertainment and educational purposes only. It is NOT intended as medical advice, diagnosis, or treatment.';
+        const disclaimerLines = pdf.splitTextToSize(disclaimer, maxWidth - 10);
+        pdf.text(disclaimerLines, margin, yPos);
+        
+        pdf.setTextColor(0, 0, 0);
+
+        pdf.save('your_dna_insights.pdf');
     });
 
     const exampleTrigger = document.getElementById('example-trigger');
