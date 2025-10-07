@@ -141,6 +141,24 @@ canvas {
     background: linear-gradient(135deg, rgba(255, 107, 157, 0.35) 0%, rgba(142, 68, 173, 0.35) 25%, rgba(52, 152, 219, 0.35) 50%, rgba(26, 188, 156, 0.35) 75%, rgba(243, 156, 18, 0.35) 100%);
     transform: scale(1.02);
 }
+#demo-btn {
+    display: block;
+    margin: 16px auto 0 auto;
+    padding: 12px 24px;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: bold;
+    background: rgba(142, 68, 173, 0.9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#demo-btn:hover {
+    background: rgba(142, 68, 173, 1);
+    transform: translateY(-2px);
+}
 .iridescent-title {
     background: linear-gradient(135deg, #ff6b9d, #8e44ad, #3498db, #1abc9c, #f39c12);
     background-size: 200% 200%;

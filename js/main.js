@@ -217,6 +217,21 @@ function init() {
             examplePreview.style.display = 'none';
         });
     }
+    
+    const demoBtn = document.getElementById('demo-btn');
+    if (demoBtn) {
+        demoBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('assets/dummy_upload.txt');
+                const text = await response.text();
+                const blob = new Blob([text], { type: 'text/plain' });
+                const file = new File([blob], 'dummy_upload.txt', { type: 'text/plain' });
+                handleFileUpload(file);
+            } catch (error) {
+                console.error('Error loading dummy file:', error);
+            }
+        });
+    }
 }
 
 async function handleFileUpload(file) {
@@ -240,11 +255,11 @@ async function handleFileUpload(file) {
         
         const { filteredContent, originalCount, filteredCount, reduction } = filterDNAFile(fileContent);
         
-        loadingBar.style.width = '25%';
+        loadingBar.style.width = '50%';
         
         textContent.style.opacity = '0';
         
-        const analysisResult = await analyzeDNAWithClaude(filteredContent);
+        setTimeout(() => { loadingBar.style.width = '100%'; }, 500);
         
         setTimeout(() => {
             loadingContainer.classList.add('fade-out');
@@ -850,7 +865,7 @@ function zoomToObject(objData) {
 
 function updateTextPanel(objData) {
     const categories = [
-        { name: 'Origins', subtitle: 'Your DNA ancestry' },
+        { name: 'Sleep', subtitle: 'Your sleep, energy, and daily cycles' },
         { name: 'Mind', subtitle: 'How you think, feel, and focus' },
         { name: 'Performance', subtitle: 'Your strength, endurance, and recovery' },
         { name: 'Nutrition', subtitle: 'How your body processes food & nutrients' },
@@ -885,7 +900,7 @@ function zoomOut() {
 
 function showHoverLabel(objData) {
     const categories = [
-        { name: 'Origins' },
+        { name: 'Sleep' },
         { name: 'Mind' },
         { name: 'Performance' },
         { name: 'Nutrition' },
