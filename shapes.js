@@ -56,22 +56,22 @@ const ShapeGenerator = {
     
     if (variant === 0) {
       // Classic smooth torus
-      const mesh = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.3, 16, 32), material);
+      const mesh = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.22, 16, 32), material);
       mesh.rotation.x = Math.PI / 4;
       mesh.castShadow = true;
       group.add(mesh);
     } 
     else if (variant === 1) {
       // Spiky torus
-      const geo = new THREE.TorusGeometry(0.8, 0.3, 16, 32);
+      const geo = new THREE.TorusGeometry(0.6, 0.22, 16, 32);
       const pos = geo.attributes.position;
       for (let i = 0; i < pos.count; i++) {
         if (i % 3 === 0) {
           const vx = pos.getX(i), vy = pos.getY(i), vz = pos.getZ(i);
           const len = Math.sqrt(vx*vx + vy*vy + vz*vz);
-          pos.setX(i, vx / len * (len + 0.4));
-          pos.setY(i, vy / len * (len + 0.4));
-          pos.setZ(i, vz / len * (len + 0.4));
+          pos.setX(i, vx / len * (len + 0.3));
+          pos.setY(i, vy / len * (len + 0.3));
+          pos.setZ(i, vz / len * (len + 0.3));
         }
       }
       geo.computeVertexNormals();
@@ -84,7 +84,7 @@ const ShapeGenerator = {
       // Rounded square torus
       const points = [];
       const numSegments = 64;
-      const size = 0.75;
+      const size = 0.55;
       for (let i = 0; i <= numSegments; i++) {
         const t = i / numSegments;
         const ang = t * Math.PI * 2;
@@ -96,7 +96,7 @@ const ShapeGenerator = {
         points.push(new THREE.Vector3(sx, 0, sz));
       }
       const squarePath = new THREE.CatmullRomCurve3(points, true);
-      const squareTubeGeo = new THREE.TubeGeometry(squarePath, 100, 0.25, 16, true);
+      const squareTubeGeo = new THREE.TubeGeometry(squarePath, 100, 0.18, 16, true);
       const mesh = new THREE.Mesh(squareTubeGeo, material);
       mesh.rotation.x = Math.PI / 4;
       mesh.castShadow = true;
@@ -108,16 +108,16 @@ const ShapeGenerator = {
       for (let i = 0; i <= 64; i++) {
         const t = i / 64;
         const ang = t * Math.PI * 2;
-        const radius = 0.75;
+        const radius = 0.55;
         points.push(new THREE.Vector3(Math.cos(ang) * radius, 0, Math.sin(ang) * radius));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.25, 16, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.18, 16, true);
       const pos = tubeGeo.attributes.position;
       for (let i = 0; i < pos.count; i++) {
         const segmentIndex = Math.floor((i / pos.count) * 100);
-        const bulge = 0.2 + Math.abs(Math.sin((segmentIndex/100) * Math.PI * 8)) * 0.15;
-        const scale = bulge / 0.25;
+        const bulge = 0.15 + Math.abs(Math.sin((segmentIndex/100) * Math.PI * 8)) * 0.11;
+        const scale = bulge / 0.18;
         const vy = pos.getY(i);
         const centerDist = Math.abs(vy);
         if (centerDist > 0.01) pos.setY(i, vy * scale);
@@ -134,12 +134,12 @@ const ShapeGenerator = {
       for (let i = 0; i <= 64; i++) {
         const t = i / 64;
         const ang = t * Math.PI * 2;
-        const radius = 0.7;
-        const wave = Math.sin(ang * 3) * 0.15;
+        const radius = 0.52;
+        const wave = Math.sin(ang * 3) * 0.11;
         points.push(new THREE.Vector3(Math.cos(ang) * radius, Math.sin(ang) * radius + wave, 0));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.22, 16, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.16, 16, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.rotation.x = Math.PI / 4;
       mesh.castShadow = true;
@@ -152,8 +152,8 @@ const ShapeGenerator = {
         const t = i / 64;
         const mainAngle = t * Math.PI * 2;
         const twistAngle = t * Math.PI * 8;
-        const mainRadius = 0.75;
-        const ropeRadius = 0.22;
+        const mainRadius = 0.55;
+        const ropeRadius = 0.16;
         points.push(new THREE.Vector3(
           (mainRadius + Math.cos(twistAngle) * ropeRadius) * Math.cos(mainAngle),
           Math.sin(twistAngle) * ropeRadius,
@@ -161,7 +161,7 @@ const ShapeGenerator = {
         ));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.2, 12, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.15, 12, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.rotation.x = Math.PI / 4;
       mesh.castShadow = true;
@@ -173,11 +173,11 @@ const ShapeGenerator = {
       for (let i = 0; i <= 64; i++) {
         const t = i / 64;
         const ang = t * Math.PI * 2;
-        const pinch = 0.7 + Math.abs(Math.cos(ang)) * 0.3;
+        const pinch = 0.52 + Math.abs(Math.cos(ang)) * 0.22;
         points.push(new THREE.Vector3(Math.cos(ang) * pinch, 0, Math.sin(ang) * pinch));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.25, 16, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.18, 16, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.rotation.x = Math.PI / 4;
       mesh.castShadow = true;
@@ -188,7 +188,7 @@ const ShapeGenerator = {
       for (let i = 0; i < 16; i++) {
         const startAngle = (i / 16) * Math.PI * 2;
         const endAngle = startAngle + Math.PI / 10;
-        const segment = new THREE.TorusGeometry(0.8, 0.28, 8, 16, endAngle - startAngle);
+        const segment = new THREE.TorusGeometry(0.6, 0.2, 8, 16, endAngle - startAngle);
         const mesh = new THREE.Mesh(segment, material);
         mesh.rotation.z = startAngle;
         mesh.rotation.x = Math.PI / 4;
@@ -230,7 +230,7 @@ const ShapeGenerator = {
     
     if (variant === 0) {
       // Classic (2,3) knot
-      const mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(0.6, 0.22, 64, 8, 2, 3), material);
+      const mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(0.45, 0.16, 64, 8, 2, 3), material);
       mesh.castShadow = true;
       group.add(mesh);
     } 
@@ -241,13 +241,13 @@ const ShapeGenerator = {
         const t = i / 64;
         const ang = t * Math.PI * 2;
         points.push(new THREE.Vector3(
-          Math.sin(ang) * 0.8,
-          Math.cos(ang * 3) * 0.4,
-          Math.cos(ang) * 0.8
+          Math.sin(ang) * 0.584,
+          Math.cos(ang * 3) * 0.292,
+          Math.cos(ang) * 0.584
         ));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.18, 16, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.131, 16, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.castShadow = true;
       group.add(mesh);
@@ -259,13 +259,13 @@ const ShapeGenerator = {
       for (let i = 0; i <= 32; i++) {
         const t = i / 32;
         const ang = t * Math.PI;
-        curve1Points.push(new THREE.Vector3(Math.cos(ang) * 0.7, Math.sin(ang) * 0.5, 0.3));
-        curve2Points.push(new THREE.Vector3(Math.cos(ang + Math.PI) * 0.7, Math.sin(ang) * 0.5, -0.3));
+        curve1Points.push(new THREE.Vector3(Math.cos(ang) * 0.511, Math.sin(ang) * 0.365, 0.219));
+        curve2Points.push(new THREE.Vector3(Math.cos(ang + Math.PI) * 0.511, Math.sin(ang) * 0.365, -0.219));
       }
       const path1 = new THREE.CatmullRomCurve3(curve1Points);
       const path2 = new THREE.CatmullRomCurve3(curve2Points);
-      const tube1 = new THREE.Mesh(new THREE.TubeGeometry(path1, 50, 0.2, 12, false), material);
-      const tube2 = new THREE.Mesh(new THREE.TubeGeometry(path2, 50, 0.2, 12, false), material);
+      const tube1 = new THREE.Mesh(new THREE.TubeGeometry(path1, 50, 0.146, 12, false), material);
+      const tube2 = new THREE.Mesh(new THREE.TubeGeometry(path2, 50, 0.146, 12, false), material);
       tube1.castShadow = true;
       tube2.castShadow = true;
       group.add(tube1, tube2);
@@ -275,25 +275,25 @@ const ShapeGenerator = {
       const points = [];
       for (let i = 0; i <= 100; i++) {
         const t = (i / 100) * Math.PI * 2;
-        points.push(new THREE.Vector3(0.8 * Math.sin(t), 0.6 * Math.sin(t * 2), 0.8 * Math.cos(t)));
+        points.push(new THREE.Vector3(0.584 * Math.sin(t), 0.438 * Math.sin(t * 2), 0.584 * Math.cos(t)));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.15, 12, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 100, 0.11, 12, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.castShadow = true;
       group.add(mesh);
       
-      const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), material);
-      sphere1.position.set(0, 0.3, 0);
+      const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.183, 16, 16), material);
+      sphere1.position.set(0, 0.219, 0);
       sphere1.castShadow = true;
-      const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), material);
-      sphere2.position.set(0, -0.3, 0);
+      const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.183, 16, 16), material);
+      sphere2.position.set(0, -0.219, 0);
       sphere2.castShadow = true;
       group.add(sphere1, sphere2);
     }
     else if (variant === 4) {
       // (3,7) knot
-      const mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(0.6, 0.22, 64, 8, 3, 7), material);
+      const mesh = new THREE.Mesh(new THREE.TorusKnotGeometry(0.438, 0.161, 64, 8, 3, 7), material);
       mesh.castShadow = true;
       group.add(mesh);
     }
@@ -303,9 +303,9 @@ const ShapeGenerator = {
         const t = i / 60;
         const ang = t * Math.PI * 2;
         const spiral = t * Math.PI * 3;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.06, 0.35), material);
-        const radius = 0.7;
-        box.position.set(Math.cos(ang) * radius, Math.sin(spiral) * 0.5, Math.sin(ang) * radius);
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.131, 0.044, 0.256), material);
+        const radius = 0.511;
+        box.position.set(Math.cos(ang) * radius, Math.sin(spiral) * 0.365, Math.sin(ang) * radius);
         box.rotation.set(spiral, ang, 0);
         box.castShadow = true;
         group.add(box);
@@ -316,7 +316,7 @@ const ShapeGenerator = {
       const points = [];
       for (let i = 0; i <= 128; i++) {
         const t = (i / 128) * Math.PI * 2;
-        const scale = 0.9;
+        const scale = 0.657;
         points.push(new THREE.Vector3(
           scale * Math.cos(t) / (1 + Math.sin(t) * Math.sin(t)),
           0,
@@ -324,7 +324,7 @@ const ShapeGenerator = {
         ));
       }
       const path = new THREE.CatmullRomCurve3(points, true);
-      const tubeGeo = new THREE.TubeGeometry(path, 128, 0.2, 16, true);
+      const tubeGeo = new THREE.TubeGeometry(path, 128, 0.146, 16, true);
       const mesh = new THREE.Mesh(tubeGeo, material);
       mesh.castShadow = true;
       group.add(mesh);
@@ -337,15 +337,15 @@ const ShapeGenerator = {
         for (let i = 0; i <= 60; i++) {
           const t = i / 60;
           const ang = t * Math.PI * 2 + offset;
-          const wave = Math.sin(t * Math.PI * 6 + offset) * 0.3;
+          const wave = Math.sin(t * Math.PI * 6 + offset) * 0.219;
           points.push(new THREE.Vector3(
-            Math.cos(ang) * (0.6 + wave),
-            Math.sin(ang * 2) * 0.35,
-            Math.sin(ang) * (0.6 + wave)
+            Math.cos(ang) * (0.438 + wave),
+            Math.sin(ang * 2) * 0.256,
+            Math.sin(ang) * (0.438 + wave)
           ));
         }
         const path = new THREE.CatmullRomCurve3(points, true);
-        const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 80, 0.12, 12, true), material);
+        const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 80, 0.088, 12, true), material);
         tube.castShadow = true;
         group.add(tube);
       }
@@ -382,7 +382,7 @@ const ShapeGenerator = {
       group.add(glow);
     }
     
-    const sphereGeo = new THREE.SphereGeometry(0.12, 12, 12);
+    const sphereGeo = new THREE.SphereGeometry(0.088, 12, 12);
     const count = 50;
     
     if (variant === 0) {
@@ -391,27 +391,27 @@ const ShapeGenerator = {
         const t = i / 40;
         const step = Math.floor(t * 8);
         const ang = step * Math.PI / 4;
-        const radius = 0.7;
-        const s = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2), material);
-        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 2.5, Math.sin(ang) * radius);
+        const radius = 0.511;
+        const s = new THREE.Mesh(new THREE.BoxGeometry(0.146, 0.146, 0.146), material);
+        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 1.825, Math.sin(ang) * radius);
         s.castShadow = true;
         group.add(s);
       }
     } 
     else if (variant === 1) {
       // Daisy/flower spiral
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.183, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let layer = 0; layer < 5; layer++) {
         const numPetals = 8 + layer * 2;
-        const radius = 0.4 + layer * 0.2;
+        const radius = 0.292 + layer * 0.146;
         const twist = layer * Math.PI / 6;
         for (let i = 0; i < numPetals; i++) {
           const ang = (i / numPetals) * Math.PI * 2 + twist;
-          const petal = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 12), material);
-          petal.position.set(Math.cos(ang) * radius, layer * 0.15 - 0.3, Math.sin(ang) * radius);
+          const petal = new THREE.Mesh(new THREE.SphereGeometry(0.088, 12, 12), material);
+          petal.position.set(Math.cos(ang) * radius, layer * 0.11 - 0.219, Math.sin(ang) * radius);
           petal.scale.set(1, 0.5, 2);
           petal.rotation.y = ang;
           petal.castShadow = true;
@@ -424,12 +424,12 @@ const ShapeGenerator = {
       const layers = 20;
       for (let layer = 0; layer < layers; layer++) {
         const t = layer / layers;
-        const radius = Math.sin(t * Math.PI) * 0.7;
-        const height = t * 2.2 - 1.1;
+        const radius = Math.sin(t * Math.PI) * 0.511;
+        const height = t * 1.606 - 0.803;
         const numInRing = Math.max(3, Math.floor(radius * 15));
         for (let i = 0; i < numInRing; i++) {
           const ang = (i / numInRing) * Math.PI * 2;
-          const s = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 12), material);
+          const s = new THREE.Mesh(new THREE.SphereGeometry(0.073, 12, 12), material);
           s.position.set(Math.cos(ang) * radius, height, Math.sin(ang) * radius);
           s.castShadow = true;
           group.add(s);
@@ -441,9 +441,9 @@ const ShapeGenerator = {
       for (let i = 0; i < count; i++) {
         const t = i / count;
         const ang = t * Math.PI * 10;
-        const radius = t * 1.2;
+        const radius = t * 0.876;
         const s = new THREE.Mesh(sphereGeo, material);
-        s.position.set(Math.cos(ang) * radius, (1 - t) * 2.2 - 1.1, Math.sin(ang) * radius);
+        s.position.set(Math.cos(ang) * radius, (1 - t) * 1.606 - 0.803, Math.sin(ang) * radius);
         s.castShadow = true;
         group.add(s);
       }
@@ -454,9 +454,9 @@ const ShapeGenerator = {
       for (let i = 0; i < count; i++) {
         const t = i / count;
         const ang = i * phi * Math.PI * 2;
-        const radius = Math.sqrt(t) * 1.2;
+        const radius = Math.sqrt(t) * 0.876;
         const s = new THREE.Mesh(sphereGeo, material);
-        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 1.8, Math.sin(ang) * radius);
+        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 1.314, Math.sin(ang) * radius);
         s.castShadow = true;
         group.add(s);
       }
@@ -466,8 +466,8 @@ const ShapeGenerator = {
       for (let i = 0; i < count; i++) {
         const t = i / count;
         const ang = t * Math.PI * 5;
-        const radius = t * 0.8;
-        const wave = Math.sin(t * Math.PI * 12) * 0.3;
+        const radius = t * 0.584;
+        const wave = Math.sin(t * Math.PI * 12) * 0.219;
         const s = new THREE.Mesh(sphereGeo, material);
         s.position.set(Math.cos(ang) * radius, wave, Math.sin(ang) * radius);
         s.castShadow = true;
@@ -481,8 +481,8 @@ const ShapeGenerator = {
         for (let h = 0; h < 3; h++) {
           const offset = (h / 3) * Math.PI * 2;
           const ang = t * Math.PI * 5 + offset;
-          const s = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), material);
-          s.position.set(Math.cos(ang) * 0.4, (t - 0.5) * 2.5, Math.sin(ang) * 0.4);
+          const s = new THREE.Mesh(new THREE.SphereGeometry(0.058, 8, 8), material);
+          s.position.set(Math.cos(ang) * 0.292, (t - 0.5) * 1.825, Math.sin(ang) * 0.292);
           s.castShadow = true;
           group.add(s);
         }
@@ -493,9 +493,9 @@ const ShapeGenerator = {
       for (let i = 0; i < count; i++) {
         const t = i / count;
         const ang = t * Math.PI * 8;
-        const radius = (1 - t) * 1.0;
+        const radius = (1 - t) * 0.73;
         const s = new THREE.Mesh(sphereGeo, material);
-        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 2.0, Math.sin(ang) * radius);
+        s.position.set(Math.cos(ang) * radius, (t - 0.5) * 1.46, Math.sin(ang) * radius);
         s.castShadow = true;
         group.add(s);
       }
@@ -781,17 +781,17 @@ const ShapeGenerator = {
     }
     
     const segments = 40;
-    const boxGeo = new THREE.BoxGeometry(0.22, 0.08, 0.6);
+    const boxGeo = new THREE.BoxGeometry(0.161, 0.058, 0.438);
     
     if (variant === 0) {
       // Chevron/arrow pattern
       for (let i = 0; i < 30; i++) {
         const t = i / 30;
         const ang = t * Math.PI;
-        const radius = 0.8;
-        const height = t * 1.5;
+        const radius = 0.584;
+        const height = t * 1.095;
         const box = new THREE.Mesh(boxGeo, material);
-        box.position.set(Math.cos(ang) * radius, height - 0.75, Math.sin(ang) * radius * 0.3);
+        box.position.set(Math.cos(ang) * radius, height - 0.548, Math.sin(ang) * radius * 0.219);
         box.rotation.y = ang - Math.PI / 2;
         box.castShadow = true;
         group.add(box);
@@ -802,9 +802,9 @@ const ShapeGenerator = {
       for (let i = 0; i < segments; i++) {
         const t = i / segments;
         const ang = t * Math.PI * 2;
-        const wave = Math.sin(t * Math.PI * 4) * 0.45;
+        const wave = Math.sin(t * Math.PI * 4) * 0.329;
         const box = new THREE.Mesh(boxGeo, material);
-        box.position.set(Math.cos(ang) * 0.9, wave, Math.sin(ang) * 0.9);
+        box.position.set(Math.cos(ang) * 0.657, wave, Math.sin(ang) * 0.657);
         box.rotation.y = ang;
         box.castShadow = true;
         group.add(box);
@@ -816,18 +816,18 @@ const ShapeGenerator = {
         const t = i / segments;
         const ang = t * Math.PI * 2;
         const angle2 = ang + Math.PI / 3;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.08, 0.45), material);
-        box.position.set(Math.cos(ang) * 0.75, Math.sin(t * Math.PI * 6) * 0.3, Math.sin(ang) * 0.75);
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.058, 0.329), material);
+        box.position.set(Math.cos(ang) * 0.548, Math.sin(t * Math.PI * 6) * 0.219, Math.sin(ang) * 0.548);
         box.castShadow = true;
-        const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.08, 0.45), material);
-        box2.position.set(Math.cos(angle2) * 0.75, -Math.sin(t * Math.PI * 6) * 0.3, Math.sin(angle2) * 0.75);
+        const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.058, 0.329), material);
+        box2.position.set(Math.cos(angle2) * 0.548, -Math.sin(t * Math.PI * 6) * 0.219, Math.sin(angle2) * 0.548);
         box2.castShadow = true;
         group.add(box, box2);
       }
     }
     else if (variant === 3) {
       // Starfish arms
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.256, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
@@ -837,11 +837,11 @@ const ShapeGenerator = {
         for (let i = 0; i < 8; i++) {
           const t = i / 8;
           const box = new THREE.Mesh(
-            new THREE.BoxGeometry(0.25 - t * 0.1, 0.15 - t * 0.05, 0.4 - t * 0.15),
+            new THREE.BoxGeometry(0.183 - t * 0.073, 0.11 - t * 0.037, 0.292 - t * 0.11),
             material
           );
-          const radius = 0.35 + t * 0.8;
-          const droop = t * t * 0.3;
+          const radius = 0.256 + t * 0.584;
+          const droop = t * t * 0.219;
           box.position.set(Math.cos(ang) * radius, -droop, Math.sin(ang) * radius);
           box.rotation.y = ang;
           box.castShadow = true;
@@ -854,9 +854,9 @@ const ShapeGenerator = {
       for (let i = 0; i < segments; i++) {
         const t = i / segments;
         const ang = t * Math.PI * 2;
-        const zigzag = Math.sin(t * Math.PI * 10) * 0.35;
+        const zigzag = Math.sin(t * Math.PI * 10) * 0.256;
         const box = new THREE.Mesh(boxGeo, material);
-        box.position.set(Math.cos(ang) * 0.85, zigzag, Math.sin(ang) * 0.85);
+        box.position.set(Math.cos(ang) * 0.621, zigzag, Math.sin(ang) * 0.621);
         box.rotation.set(zigzag, ang, t * Math.PI * 2);
         box.castShadow = true;
         group.add(box);
@@ -869,13 +869,13 @@ const ShapeGenerator = {
         const baseAngle = (tentacle / numTentacles) * Math.PI * 2;
         for (let i = 0; i < 12; i++) {
           const t = i / 12;
-          const box = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.12, 0.4), material);
-          const radius = t * 1.1;
-          const curve = Math.sin(t * Math.PI) * 0.5;
+          const box = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.088, 0.292), material);
+          const radius = t * 0.803;
+          const curve = Math.sin(t * Math.PI) * 0.365;
           const twist = t * Math.PI * 0.5;
           box.position.set(
             Math.cos(baseAngle + twist) * radius,
-            curve - 0.3,
+            curve - 0.219,
             Math.sin(baseAngle + twist) * radius
           );
           box.rotation.set(curve, baseAngle + twist, t * 0.8);
@@ -891,11 +891,11 @@ const ShapeGenerator = {
         const petalAngle = (petal / numPetals) * Math.PI * 2;
         for (let i = 0; i < 10; i++) {
           const t = i / 10;
-          const radius = t * 1.0 + 0.2;
-          const box = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.08, 0.35), material);
+          const radius = t * 0.73 + 0.146;
+          const box = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.058, 0.256), material);
           box.position.set(
             Math.cos(petalAngle) * radius,
-            Math.sin(t * Math.PI) * 0.3,
+            Math.sin(t * Math.PI) * 0.219,
             Math.sin(petalAngle) * radius
           );
           box.rotation.y = petalAngle;
@@ -906,7 +906,7 @@ const ShapeGenerator = {
     }
     else if (variant === 7) {
       // Crab claws
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.183, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
@@ -915,23 +915,23 @@ const ShapeGenerator = {
         const ang = (i / numClaws) * Math.PI * 2;
         for (let segment = 0; segment < 5; segment++) {
           const t = segment / 5;
-          const box = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.45), material);
-          const radius = 0.25 + t * 0.6;
-          const lift = t * 0.4;
+          const box = new THREE.Mesh(new THREE.BoxGeometry(0.131, 0.073, 0.329), material);
+          const radius = 0.183 + t * 0.438;
+          const lift = t * 0.292;
           box.position.set(Math.cos(ang) * radius, lift, Math.sin(ang) * radius);
           box.rotation.y = ang;
           box.castShadow = true;
           group.add(box);
         }
         
-        const tipRadius = 0.85;
-        const pincerBox1 = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.08, 0.3), material);
-        pincerBox1.position.set(Math.cos(ang - 0.15) * tipRadius, 0.4, Math.sin(ang - 0.15) * tipRadius);
+        const tipRadius = 0.621;
+        const pincerBox1 = new THREE.Mesh(new THREE.BoxGeometry(0.088, 0.058, 0.219), material);
+        pincerBox1.position.set(Math.cos(ang - 0.15) * tipRadius, 0.292, Math.sin(ang - 0.15) * tipRadius);
         pincerBox1.rotation.y = ang - 0.3;
         pincerBox1.castShadow = true;
         
-        const pincerBox2 = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.08, 0.3), material);
-        pincerBox2.position.set(Math.cos(ang + 0.15) * tipRadius, 0.4, Math.sin(ang + 0.15) * tipRadius);
+        const pincerBox2 = new THREE.Mesh(new THREE.BoxGeometry(0.088, 0.058, 0.219), material);
+        pincerBox2.position.set(Math.cos(ang + 0.15) * tipRadius, 0.292, Math.sin(ang + 0.15) * tipRadius);
         pincerBox2.rotation.y = ang + 0.3;
         pincerBox2.castShadow = true;
         
@@ -972,28 +972,28 @@ const ShapeGenerator = {
     
     if (variant === 0) {
       // Vertical pillars
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.183, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let i = 0; i < 8; i++) {
         const ang = (i / 8) * Math.PI * 2;
-        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 1.2, 8), material);
-        pillar.position.set(Math.cos(ang) * 0.5, 0, Math.sin(ang) * 0.5);
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.058, 0.876, 8), material);
+        pillar.position.set(Math.cos(ang) * 0.365, 0, Math.sin(ang) * 0.365);
         pillar.castShadow = true;
         group.add(pillar);
       }
     } 
     else if (variant === 1) {
       // Box rays
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let i = 0; i < 16; i++) {
         const ang = (i / 16) * Math.PI * 2;
-        const ray = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 1.35), material);
-        ray.position.set(Math.cos(ang) * 0.68, 0, Math.sin(ang) * 0.68);
+        const ray = new THREE.Mesh(new THREE.BoxGeometry(0.058, 0.058, 0.986), material);
+        ray.position.set(Math.cos(ang) * 0.496, 0, Math.sin(ang) * 0.496);
         ray.rotation.y = ang;
         ray.castShadow = true;
         group.add(ray);
@@ -1001,22 +1001,22 @@ const ShapeGenerator = {
     }
     else if (variant === 2) {
       // Branching tree
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let i = 0; i < 8; i++) {
         const ang = (i / 8) * Math.PI * 2;
-        const spike = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.015, 0.9, 6), material);
-        spike.position.set(Math.cos(ang) * 0.3, 0, Math.sin(ang) * 0.3);
+        const spike = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.011, 0.657, 6), material);
+        spike.position.set(Math.cos(ang) * 0.219, 0, Math.sin(ang) * 0.219);
         spike.rotation.set(0, ang, Math.PI / 2);
         spike.castShadow = true;
         group.add(spike);
         
-        const endX = Math.cos(ang) * 0.75, endZ = Math.sin(ang) * 0.75;
+        const endX = Math.cos(ang) * 0.548, endZ = Math.sin(ang) * 0.548;
         for (let j = 0; j < 3; j++) {
           const subAngle = ang + (j - 1) * Math.PI / 6;
-          const subSpike = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.015, 0.36, 6), material);
+          const subSpike = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.011, 0.263, 6), material);
           subSpike.position.set(endX, 0, endZ);
           subSpike.rotation.set(0, subAngle, Math.PI / 2);
           subSpike.castShadow = true;
@@ -1026,14 +1026,14 @@ const ShapeGenerator = {
     }
     else if (variant === 3) {
       // Flat disc with segments
-      const center = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.15, 16), material);
+      const center = new THREE.Mesh(new THREE.CylinderGeometry(0.219, 0.219, 0.11, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let i = 0; i < 12; i++) {
         const ang = (i / 12) * Math.PI * 2;
-        const segment = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.15, 0.9), material);
-        segment.position.set(Math.cos(ang) * 0.6, 0, Math.sin(ang) * 0.6);
+        const segment = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.11, 0.657), material);
+        segment.position.set(Math.cos(ang) * 0.438, 0, Math.sin(ang) * 0.438);
         segment.rotation.y = ang;
         segment.castShadow = true;
         group.add(segment);
@@ -1041,7 +1041,7 @@ const ShapeGenerator = {
     }
     else if (variant === 4) {
       // Crystal ring
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
@@ -1054,8 +1054,8 @@ const ShapeGenerator = {
       
       for (let i = 0; i < 10; i++) {
         const ang = (i / 10) * Math.PI * 2;
-        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.22, 0), flatMaterial);
-        crystal.position.set(Math.cos(ang) * 0.6, 0, Math.sin(ang) * 0.6);
+        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.161, 0), flatMaterial);
+        crystal.position.set(Math.cos(ang) * 0.438, 0, Math.sin(ang) * 0.438);
         crystal.rotation.y = ang;
         crystal.castShadow = true;
         group.add(crystal);
@@ -1063,17 +1063,17 @@ const ShapeGenerator = {
     }
     else if (variant === 5) {
       // Vertical spikes
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let i = 0; i < 6; i++) {
         const ang = (i / 6) * Math.PI * 2;
-        const spikeUp = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.0, 8), material);
-        spikeUp.position.set(Math.cos(ang) * 0.25, 0.5, Math.sin(ang) * 0.25);
+        const spikeUp = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.015, 0.73, 8), material);
+        spikeUp.position.set(Math.cos(ang) * 0.183, 0.365, Math.sin(ang) * 0.183);
         spikeUp.castShadow = true;
-        const spikeDown = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.0, 8), material);
-        spikeDown.position.set(Math.cos(ang) * 0.25, -0.5, Math.sin(ang) * 0.25);
+        const spikeDown = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.015, 0.73, 8), material);
+        spikeDown.position.set(Math.cos(ang) * 0.183, -0.365, Math.sin(ang) * 0.183);
         spikeDown.rotation.z = Math.PI;
         spikeDown.castShadow = true;
         group.add(spikeUp, spikeDown);
@@ -1081,7 +1081,7 @@ const ShapeGenerator = {
     }
     else if (variant === 6) {
       // Curved rays
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
@@ -1089,12 +1089,12 @@ const ShapeGenerator = {
         const ang = (i / 10) * Math.PI * 2;
         for (let j = 0; j < 8; j++) {
           const t = j / 8;
-          const curve = Math.sin(t * Math.PI) * 0.25;
-          const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), material);
+          const curve = Math.sin(t * Math.PI) * 0.183;
+          const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.037, 8, 8), material);
           sphere.position.set(
-            Math.cos(ang) * (0.3 + t * 0.6) + curve,
+            Math.cos(ang) * (0.219 + t * 0.438) + curve,
             0,
-            Math.sin(ang) * (0.3 + t * 0.6)
+            Math.sin(ang) * (0.219 + t * 0.438)
           );
           sphere.castShadow = true;
           group.add(sphere);
@@ -1103,18 +1103,18 @@ const ShapeGenerator = {
     }
     else if (variant === 7) {
       // Orbiting spheres
-      const center = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material);
+      const center = new THREE.Mesh(new THREE.SphereGeometry(0.219, 16, 16), material);
       center.castShadow = true;
       group.add(center);
       
       for (let ring = 0; ring < 3; ring++) {
         const numSpheres = 8;
-        const radius = 0.7;
+        const radius = 0.511;
         const tilt = (ring / 3) * Math.PI;
         
         for (let i = 0; i < numSpheres; i++) {
           const ang = (i / numSpheres) * Math.PI * 2;
-          const orb = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 12), material);
+          const orb = new THREE.Mesh(new THREE.SphereGeometry(0.073, 12, 12), material);
           const vx = Math.cos(ang) * radius;
           const vy = Math.sin(ang) * radius * Math.sin(tilt);
           const vz = Math.sin(ang) * radius * Math.cos(tilt);
@@ -1162,8 +1162,8 @@ const ShapeGenerator = {
       // Classic twisted boxes
       for (let i = 0; i < layers; i++) {
         const t = i / layers;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.22, 0.9), material);
-        box.position.y = (t - 0.5) * 1.8;
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.657, 0.161, 0.657), material);
+        box.position.y = (t - 0.5) * 1.314;
         box.rotation.y = t * Math.PI / 2;
         box.castShadow = true;
         group.add(box);
@@ -1173,9 +1173,9 @@ const ShapeGenerator = {
       // Expanding boxes
       for (let i = 0; i < layers; i++) {
         const t = i / layers;
-        const scale = 0.5 + t * 0.6;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(scale, 0.2, scale), material);
-        box.position.y = (t - 0.5) * 2.0;
+        const scale = 0.365 + t * 0.438;
+        const box = new THREE.Mesh(new THREE.BoxGeometry(scale, 0.146, scale), material);
+        box.position.y = (t - 0.5) * 1.46;
         box.rotation.y = t * Math.PI / 3;
         box.castShadow = true;
         group.add(box);
@@ -1185,9 +1185,9 @@ const ShapeGenerator = {
       // Offset ziggurat
       for (let i = 0; i < layers; i++) {
         const t = i / layers;
-        const offset = (i % 2) * 0.4 - 0.2;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.2, 0.8), material);
-        box.position.set(offset, (t - 0.5) * 1.9, 0);
+        const offset = (i % 2) * 0.292 - 0.146;
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.584, 0.146, 0.584), material);
+        box.position.set(offset, (t - 0.5) * 1.387, 0);
         box.rotation.y = t * Math.PI / 4;
         box.castShadow = true;
         group.add(box);
@@ -1197,8 +1197,8 @@ const ShapeGenerator = {
       // Tapering pyramid
       for (let i = 0; i < layers; i++) {
         const t = i / layers;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(1.05 - t * 0.3, 0.18, 1.05 - t * 0.3), material);
-        box.position.y = (t - 0.5) * 1.95;
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.767 - t * 0.219, 0.131, 0.767 - t * 0.219), material);
+        box.position.y = (t - 0.5) * 1.424;
         box.rotation.y = t * Math.PI;
         box.castShadow = true;
         group.add(box);
@@ -1208,17 +1208,17 @@ const ShapeGenerator = {
       // Cross formation
       for (let i = 0; i < 6; i++) {
         const t = i / 6;
-        const vy = (t - 0.5) * 2.0;
+        const vy = (t - 0.5) * 1.46;
         
-        const center = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.2, 0.4), material);
+        const center = new THREE.Mesh(new THREE.BoxGeometry(0.292, 0.146, 0.292), material);
         center.position.y = vy;
         center.castShadow = true;
         group.add(center);
         
         for (let arm = 0; arm < 4; arm++) {
           const ang = (arm / 4) * Math.PI * 2;
-          const box = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.18, 0.6), material);
-          box.position.set(Math.cos(ang) * 0.5, vy, Math.sin(ang) * 0.5);
+          const box = new THREE.Mesh(new THREE.BoxGeometry(0.219, 0.131, 0.438), material);
+          box.position.set(Math.cos(ang) * 0.365, vy, Math.sin(ang) * 0.365);
           box.rotation.y = ang;
           box.castShadow = true;
           group.add(box);
@@ -1229,9 +1229,9 @@ const ShapeGenerator = {
       // Cross pattern boxes
       for (let i = 0; i < layers; i++) {
         const t = i / layers;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.18, 0.7), material);
-        const crossOffset = (i % 2) * 0.35;
-        box.position.set(crossOffset, (t - 0.5) * 1.85, -crossOffset);
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.511, 0.131, 0.511), material);
+        const crossOffset = (i % 2) * 0.256;
+        box.position.set(crossOffset, (t - 0.5) * 1.351, -crossOffset);
         box.rotation.y = t * Math.PI / 2 + (i % 2) * Math.PI / 4;
         box.castShadow = true;
         group.add(box);
@@ -1242,9 +1242,9 @@ const ShapeGenerator = {
       for (let i = 0; i < 12; i++) {
         const t = i / 12;
         const ang = t * Math.PI * 3;
-        const radius = 0.6;
-        const box = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.15, 0.5), material);
-        box.position.set(Math.cos(ang) * radius, (t - 0.5) * 2.2, Math.sin(ang) * radius);
+        const radius = 0.438;
+        const box = new THREE.Mesh(new THREE.BoxGeometry(0.365, 0.11, 0.365), material);
+        box.position.set(Math.cos(ang) * radius, (t - 0.5) * 1.606, Math.sin(ang) * radius);
         box.rotation.y = ang + Math.PI / 2;
         box.castShadow = true;
         group.add(box);
@@ -1256,14 +1256,14 @@ const ShapeGenerator = {
         const t = i / 10;
         const ang = t * Math.PI * 4;
         
-        const box1 = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.18, 0.4), material);
-        box1.position.set(Math.cos(ang) * 0.5, (t - 0.5) * 2.0, Math.sin(ang) * 0.5);
+        const box1 = new THREE.Mesh(new THREE.BoxGeometry(0.292, 0.131, 0.292), material);
+        box1.position.set(Math.cos(ang) * 0.365, (t - 0.5) * 1.46, Math.sin(ang) * 0.365);
         box1.rotation.y = ang;
         box1.castShadow = true;
         group.add(box1);
         
-        const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.18, 0.4), material);
-        box2.position.set(Math.cos(ang + Math.PI) * 0.5, (t - 0.5) * 2.0, Math.sin(ang + Math.PI) * 0.5);
+        const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.292, 0.131, 0.292), material);
+        box2.position.set(Math.cos(ang + Math.PI) * 0.365, (t - 0.5) * 1.46, Math.sin(ang + Math.PI) * 0.365);
         box2.rotation.y = ang + Math.PI;
         box2.castShadow = true;
         group.add(box2);
