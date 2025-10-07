@@ -242,6 +242,8 @@ async function handleFileUpload(file) {
         
         loadingBar.style.width = '25%';
         
+        textContent.style.opacity = '0';
+        
         const analysisResult = await analyzeDNAWithClaude(filteredContent);
         
         setTimeout(() => {
@@ -250,11 +252,38 @@ async function handleFileUpload(file) {
                 loadingContainer.style.display = 'none';
                 loadingContainer.classList.remove('fade-out');
                 loadingBar.style.width = '0%';
+                
+                const textLines = [
+                    '<span class="iridescent-title">Your DNA Solar System</span>',
+                    'Welcome to your personal solar system artwork where your DNA decides each planet\'s shape.',
+                    'Click on a planet to learn fun facts about your DNA.',
+                    'Click \'Download PDF\' to save a summary of your insights.',
+                    'Click the camera icon in the lower right corner anytime to save snapshots of your artwork!'
+                ];
+                
+                textContent.innerHTML = '';
+                textContent.style.opacity = '1';
+                
+                textLines.forEach((line, index) => {
+                    setTimeout(() => {
+                        const lineDiv = document.createElement('div');
+                        lineDiv.className = 'text-line';
+                        lineDiv.innerHTML = line;
+                        if (index > 0) {
+                            const br1 = document.createElement('br');
+                            const br2 = document.createElement('br');
+                            textContent.appendChild(br1);
+                            textContent.appendChild(br2);
+                        }
+                        textContent.appendChild(lineDiv);
+                        
+                        setTimeout(() => {
+                            lineDiv.classList.add('visible');
+                        }, 50);
+                    }, index * 1200);
+                });
             }, 500);
         }, 500);
-        
-        textContent.classList.add('fade-in');
-        textContent.innerHTML = analysisResult || '<span class="iridescent-title">Your DNA Solar System</span><br><br>Explore your personal planet artwork generated from your DNA sequence - one of 2 million+ possibilities!<br><br>Click on a planet to learn insights about your DNA.<br><br>Click the camera icon anytime to save snapshots of your artwork!';
         
         downloadBtn.classList.add('visible');
         
@@ -851,7 +880,7 @@ function zoomOut() {
     
     document.getElementById('back-btn').classList.remove('active');
     
-    document.getElementById('text-content').innerHTML = '<span class="iridescent-title">Your DNA Solar System</span><br><br>Explore your personal planet artwork generated from your DNA sequence - one of 2 million+ possibilities!<br><br>Click on a planet to learn insights about your DNA.<br><br>Click the camera icon anytime to save snapshots of your artwork!';
+    document.getElementById('text-content').innerHTML = '<span class="iridescent-title">Your DNA Solar System</span><br><br>Welcome to your personal solar system artwork where your DNA decides each planet\'s shape.<br><br>Click on a planet to learn fun facts about your DNA.<br><br>Click \'Download PDF\' to save a summary of your insights.<br><br>Click the camera icon in the lower right corner anytime to save snapshots of your artwork!';
 }
 
 function showHoverLabel(objData) {

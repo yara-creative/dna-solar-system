@@ -114,6 +114,6 @@ Provide detailed, personalized insights for each category.`;
     } catch (error) {
         console.error('Claude API error:', error);
         loadingBar.style.width = '100%';
-        return '<span class="iridescent-title">Your DNA Solar System</span><br><br>Explore your personal planet artwork generated from your DNA sequence - one of 2 million+ possibilities!<br><br>Click on a planet to learn insights about your DNA.<br><br>Click the camera icon anytime to save snapshots of your artwork!';
+        return '<span class="iridescent-title">Your DNA Solar System</span><br><br>Welcome to your personal solar system artwork where your DNA decides each planet\'s shape.<br><br>Click on a planet to learn fun facts about your DNA.<br><br>Click \'Download PDF\' to save a summary of your insights.<br><br>Click the camera icon in the lower right corner anytime to save snapshots of your artwork!';
     }
 }

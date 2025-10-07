@@ -66,7 +66,14 @@ canvas {
     margin-bottom: 10px;
     opacity: 1;
     transition: opacity 0.5s ease;
-    padding-bottom: 0px;
+    padding-bottom: 100px;
+}
+.text-line {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+.text-line.visible {
+    opacity: 1;
 }
 #claude-attribution {
     position: fixed;
@@ -141,6 +148,7 @@ canvas {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: bold;
+    font-size: 18px;
     animation: iridescent-shift 3s ease infinite;
 }
 @keyframes iridescent-shift {
@@ -237,7 +245,10 @@ canvas {
 }
 #loading-container {
     display: none;
-    margin-top: 20px;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
     opacity: 1;
     transition: opacity 0.5s ease;
 }
