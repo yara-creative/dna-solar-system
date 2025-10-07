@@ -128,9 +128,16 @@ function filterDNAFile(fileContent) {
     
     const rsid = stripQuotes(parts[0]);
     
+    if (originalCount <= 5) {
+      console.log(`Sample row ${originalCount}: rsid="${rsid}" from line: ${line.substring(0, 80)}`);
+    }
+    
     if (analysisRsids.has(rsid)) {
       filteredLines.push(line);
       filteredCount++;
+      if (filteredCount <= 3) {
+        console.log(`✅ MATCH found: ${rsid}`);
+      }
     }
   }
   
