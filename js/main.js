@@ -196,6 +196,27 @@ function init() {
         
         pdf.save('dna_analysis.pdf');
     });
+    
+    const exampleTrigger = document.getElementById('example-trigger');
+    const examplePreview = document.getElementById('example-preview');
+    
+    if (exampleTrigger && examplePreview) {
+        exampleTrigger.addEventListener('mouseenter', () => {
+            examplePreview.style.display = 'block';
+        });
+        
+        exampleTrigger.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (!examplePreview.matches(':hover')) {
+                    examplePreview.style.display = 'none';
+                }
+            }, 100);
+        });
+        
+        examplePreview.addEventListener('mouseleave', () => {
+            examplePreview.style.display = 'none';
+        });
+    }
 }
 
 async function handleFileUpload(file) {
