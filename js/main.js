@@ -863,7 +863,7 @@ function updateTextPanel(objData) {
     const category = categories[index];
     
     document.getElementById('text-content').innerHTML = 
-        `<span style="text-decoration: underline;">${category.name}</span><br>${category.subtitle}`;
+        `<span class="iridescent-category">${category.name}</span><br>${category.subtitle}`;
 }
 
 function zoomOut() {
