@@ -12,13 +12,11 @@
     <button id="back-btn">←</button>
     <button id="audio-toggle" title="Unmute">🔇</button>
     <button id="camera-btn" title="Save a pic">📷</button>
-    <button id="download-btn">Download PDF</button>
     <audio id="bg-music" loop preload="auto">
         <source src="https://cdn.pixabay.com/audio/2025/06/06/audio_25a5dda27a.mp3" type="audio/mpeg">
     </audio>
     <div id="text-panel">
         <div id="text-content"><span class="iridescent-title">Welcome to DNA Solar System!</span><br><br>Generate your own interactive artwork based on your unique DNA.<br><br>Your genes determine which planets appear in your solar system - over 2 million possibilities!<br><br>Explore the planets to learn fun DNA insights.<br><br><strong>🔒 All data is processed locally - no data is sent to external servers.</strong></div>
-        <div id="disclaimer" style="position: absolute; bottom: 80px; left: 40px; right: 40px; padding: 12px; background: rgba(0,0,0,0.05); border-radius: 6px; font-size: 11px; color: #666; line-height: 1.4;">DISCLAIMER: This tool is for entertainment and educational purposes only. It is NOT intended as medical advice, diagnosis, or treatment. Consult a qualified healthcare professional for medical decisions.</div>
         <div id="upload-area" style="margin-top: -80px;">
             <div id="upload-text">Click to upload or drag your DNA .txt file here to start</div>
         </div>
@@ -34,7 +32,11 @@
                 <div id="loading-bar"></div>
             </div>
         </div>
-        <div id="claude-attribution">Built with Claude 4.5</div>
+        <div id="panel-footer">
+            <button id="download-btn">Download PDF</button>
+            <div id="disclaimer">DISCLAIMER: This tool is for entertainment and educational purposes only. It is NOT intended as medical advice, diagnosis, or treatment. Consult a qualified healthcare professional for medical decisions.</div>
+            <div id="claude-attribution">Built with Claude 4.5</div>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="knowledge_base.js"></script>

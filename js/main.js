@@ -936,17 +936,14 @@ function updateTextPanel(objData) {
     const index = circleObjects.indexOf(objData);
     const category = categories[index];
     
-    // Get analysis for this category from stored global
     const categoryAnalysis = window.dnaAnalysis[category.key];
 
     console.log('=== STEP 5: DISPLAY ===');
     console.log('Category key:', category.key);
     console.log('Category analysis:', categoryAnalysis);
     
-    // Format using DNAAnalyzer's built-in formatter
     const analysisHTML = window.dnaAnalyzer.formatForDisplay(categoryAnalysis);
     
-    // Add category header with iridescent title
     const fullHTML = `
         <div style="margin-bottom: 20px;">
             <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 5px; background: linear-gradient(45deg, #ff6b9d, #c44569, #8e44ad, #3498db, #1abc9c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">${category.name}</h2>

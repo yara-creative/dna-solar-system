@@ -53,20 +53,22 @@ canvas {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-    padding: 40px;
     box-sizing: border-box;
-    overflow-y: auto;
     z-index: 50;
+    display: flex;
+    flex-direction: column;
 }
 #text-content {
     color: #000000;
     font-size: 14px;
     line-height: 1.6;
     letter-spacing: 0.3px;
-    margin-bottom: 10px;
     opacity: 1;
     transition: opacity 0.5s ease;
-    padding-bottom: 100px;
+    padding: 40px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    flex: 1;
 }
 .text-line {
     opacity: 0;
@@ -75,24 +77,35 @@ canvas {
 .text-line.visible {
     opacity: 1;
 }
+#panel-footer {
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+#disclaimer {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.4;
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    margin: 0;
+}
 #claude-attribution {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
     font-size: 12px;
     font-weight: bold;
     color: #666;
-    z-index: 100;
     pointer-events: none;
+    margin: 0;
 }
 #download-btn {
-    position: fixed;
-    bottom: 20px;
-    right: calc(40vw - 160px);
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
     background: rgba(102, 126, 234, 0.9);
     color: white;
@@ -102,7 +115,7 @@ canvas {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, background 0.3s ease, transform 0.2s ease;
-    z-index: 100;
+    align-self: flex-start;
 }
 #download-btn.visible {
     opacity: 1;
