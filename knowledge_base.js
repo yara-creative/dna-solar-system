@@ -780,4 +780,7 @@ const CATEGORY_RSIDS = {
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { KNOWLEDGE_BASE, CATEGORY_RSIDS };
+} else {
+  // Browser global export
+  window.knowledgeBase = { KNOWLEDGE_BASE, CATEGORY_RSIDS };
 }

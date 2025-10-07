@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pipeline Test</title>
+</head>
+<body>
+    <h1>DNA Solar System Pipeline Test</h1>
+    <div id="output"></div>
+    
+    <script src="knowledge_base.js"></script>
+    <script src="dna_analyzer.js"></script>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        // Test DNA content (minimal example)
+        const testDNA = `rsid	chromosome	position	genotype
+rs1801260	4	55520484	TT
+rs4680	22	19963748	AG
+rs1815739	11	66560624	CT
+rs4988235	2	135851076	GG
+rs1061170	1	196690107	CT
+rs713598	7	141972903	CG
+rs2802292	6	108882067	TT`;
+
+        output.innerHTML += '<h2>Step 1: DNA Parsing</h2>';
+        
+        // Step 1: Create analyzer
+        const analyzer = new DNAAnalyzer(window.knowledgeBase.KNOWLEDGE_BASE);
+        output.innerHTML += '<p>✅ Analyzer created with knowledge base</p>';
+        
+        // Step 2: Parse DNA
+        analyzer.parseDNA(testDNA);
+        output.innerHTML += `<p>✅ Parsed ${analyzer.parsedData.size} SNPs</p>`;
+        
+        // Step 3: Generate analysis
+        output.innerHTML += '<h2>Step 2: Generate Analysis</h2>';
+        const analysis = analyzer.generateFullAnalysis();
+        output.innerHTML += '<p>✅ Full analysis generated</p>';
+        Object.keys(analysis).forEach(cat => {
+            output.innerHTML += `<p>  - ${cat}: ${analysis[cat].traits.length} traits found</p>`;
+        });
+        
+        // Step 4: Generate shape variants
+        output.innerHTML += '<h2>Step 3: Shape Hashing</h2>';
+        const shapeVariants = analyzer.generateShapeVariants();
+        output.innerHTML += '<p>✅ Shape variants generated:</p>';
+        output.innerHTML += '<pre>' + JSON.stringify(shapeVariants, null, 2) + '</pre>';
+        
+        // Step 5: Verify category retrieval
+        output.innerHTML += '<h2>Step 5: Category Analysis Retrieval</h2>';
+        const sleepAnalysis = analyzer.getCategoryAnalysis('sleep');
+        output.innerHTML += `<p>✅ Sleep category: ${sleepAnalysis.traits.length} traits</p>`;
+        output.innerHTML += `<p>Summary: ${sleepAnalysis.summary}</p>`;
+        
+        output.innerHTML += '<h2>✅ ALL PIPELINE STEPS WORKING!</h2>';
+    </script>
+</body>
+</html>

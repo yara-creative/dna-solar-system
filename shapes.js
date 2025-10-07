@@ -628,6 +628,132 @@ const ShapeGenerator = {
   },
 
   // ============================================
+  // CRYSTAL FAMILY - Nutrition
+  // ============================================
+  createCrystalVariant: function(variant, x, y, z, color, angle) {
+    const group = new THREE.Group();
+    const material = new THREE.MeshStandardMaterial({
+      color: color,
+      roughness: 0.2,
+      metalness: 0.8,
+      flatShading: true
+    });
+    
+    // Add glow layers
+    for (let i = 0; i < 4; i++) {
+      const glowSize = 1.3 + i * 0.3;
+      const glowOpacity = 0.35 - i * 0.08;
+      const glowGeo = new THREE.CircleGeometry(glowSize, 32);
+      const glowMat = new THREE.MeshBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: glowOpacity,
+        side: THREE.DoubleSide
+      });
+      const glow = new THREE.Mesh(glowGeo, glowMat);
+      glow.rotation.x = -Math.PI / 2;
+      group.add(glow);
+    }
+    
+    if (variant === 0) {
+      // Stretched octahedron
+      const geo = new THREE.OctahedronGeometry(1, 0);
+      const pos = geo.attributes.position;
+      for (let i = 0; i < pos.count; i++) pos.setY(i, pos.getY(i) * 1.3);
+      geo.computeVertexNormals();
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.castShadow = true;
+      group.add(mesh);
+    } 
+    else if (variant === 1) {
+      // Icosahedron
+      const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(0.9, 0), material);
+      mesh.castShadow = true;
+      group.add(mesh);
+    }
+    else if (variant === 2) {
+      // Diamond gemstone
+      const topGeo = new THREE.ConeGeometry(0.85, 0.6, 8);
+      const topMesh = new THREE.Mesh(topGeo, material);
+      topMesh.position.y = 0.3;
+      topMesh.castShadow = true;
+      group.add(topMesh);
+      
+      const bottomGeo = new THREE.ConeGeometry(0.85, 1.3, 8);
+      const bottomMesh = new THREE.Mesh(bottomGeo, material);
+      bottomMesh.position.y = -0.35;
+      bottomMesh.rotation.z = Math.PI;
+      bottomMesh.castShadow = true;
+      group.add(bottomMesh);
+      
+      const tableGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 8);
+      const tableMesh = new THREE.Mesh(tableGeo, material);
+      tableMesh.position.y = 0.625;
+      tableMesh.castShadow = true;
+      group.add(tableMesh);
+    }
+    else if (variant === 3) {
+      // Smooth cone
+      const mesh = new THREE.Mesh(new THREE.ConeGeometry(0.7, 1.6, 32), material);
+      mesh.castShadow = true;
+      group.add(mesh);
+    }
+    else if (variant === 4) {
+      // Hexagonal prism
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 1.8, 6), material);
+      mesh.castShadow = true;
+      group.add(mesh);
+    }
+    else if (variant === 5) {
+      // Elongated cube cluster
+      const cubeSize = 0.28;
+      const baseGap = 0.05;
+      for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+          for (let z = -1; z <= 1; z++) {
+            const cube = new THREE.Mesh(new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize), material);
+            cube.position.set(
+              x * (cubeSize + baseGap),
+              y * (cubeSize + baseGap) * 2.2,
+              z * (cubeSize + baseGap)
+            );
+            cube.castShadow = true;
+            group.add(cube);
+          }
+        }
+      }
+    }
+    else if (variant === 6) {
+      // Smooth cylinder
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.8, 16), material);
+      mesh.castShadow = true;
+      group.add(mesh);
+    }
+    else if (variant === 7) {
+      // Quadruple-sided cone
+      const cone1 = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.2, 8), material);
+      cone1.position.y = 0.6;
+      cone1.castShadow = true;
+      const cone2 = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.2, 8), material);
+      cone2.position.y = -0.6;
+      cone2.rotation.z = Math.PI;
+      cone2.castShadow = true;
+      const cone3 = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.2, 8), material);
+      cone3.position.x = 0.6;
+      cone3.rotation.z = -Math.PI / 2;
+      cone3.castShadow = true;
+      const cone4 = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.2, 8), material);
+      cone4.position.x = -0.6;
+      cone4.rotation.z = Math.PI / 2;
+      cone4.castShadow = true;
+      group.add(cone1, cone2, cone3, cone4);
+    }
+    
+    group.position.set(x, y, z);
+    return group;
+  },
+
+  // ============================================
   // RIBBON FAMILY - Health
   // ============================================
   createRibbonVariant: function(variant, x, y, z, color, angle) {
