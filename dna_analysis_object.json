@@ -1,0 +1,656 @@
+{
+  "sleep": {
+    "category": "sleep",
+    "traits": [
+      {
+        "rsid": "rs1801260",
+        "name": "CLOCK - Circadian Rhythm Type (Morning Person vs Night Owl)",
+        "genotype": "AA",
+        "interpretation": "Morning person (lark)! You naturally wake early and feel most alert in the mornings. Your circadian clock runs slightly faster than 24 hours. Early to bed, early to rise. Peak productivity before noon. Evening tasks may be harder. The A/A genotype is associated with earlier sleep timing and morning preference.",
+        "raw": {
+          "category": "sleep",
+          "name": "CLOCK - Circadian Rhythm Type (Morning Person vs Night Owl)",
+          "genotypes": {
+            "AA": "Morning person (lark)! You naturally wake early and feel most alert in the mornings. Your circadian clock runs slightly faster than 24 hours. Early to bed, early to rise. Peak productivity before noon. Evening tasks may be harder. The A/A genotype is associated with earlier sleep timing and morning preference.",
+            "AT": "Moderate chronotype. Flexible sleep-wake timing - can adapt to different schedules somewhat easily. Not strongly morning or evening oriented. Most adaptable for shift work or travel.",
+            "TT": "Evening person (night owl). The T variant is associated with later sleep timing and staying up late naturally. Feel more alert and productive in evenings and nights. Struggle with early mornings. May have delayed sleep phase. Your circadian rhythm naturally runs longer than 24 hours."
+          }
+        }
+      }
+    ],
+    "summary": "Your sleep and circadian rhythm genetics are shaped by 1 key variants affecting your natural sleep-wake cycle and rest quality.",
+    "highlights": []
+  },
+  "mind": {
+    "category": "mind",
+    "traits": [
+      {
+        "rsid": "rs4680",
+        "name": "COMT - Warrior/Worrier Gene",
+        "genotype": "AA",
+        "interpretation": "Worrier variant (Met/Met). Slower dopamine breakdown means superior memory, attention to detail, and sustained focus - but more sensitive to stress and anxiety. Excel in calm, structured environments. Better at planning and analysis than crisis response. May ruminate more.",
+        "raw": {
+          "category": "mind",
+          "name": "COMT - Warrior/Worrier Gene",
+          "genotypes": {
+            "GG": "Warrior variant (Val/Val). Fast dopamine clearance in prefrontal cortex means you handle stress exceptionally well and think clearly under pressure. Thrive in chaos and high-stakes situations. May need more stimulation for detailed memory tasks. Better at 'thinking on your feet' than prolonged focus.",
+            "AG": "The Goldilocks genotype! Balanced warrior-worrier. You get excellent memory AND good stress performance. Cognitive flexibility - can focus deeply on details but also adapt quickly under pressure. This heterozygous state is considered optimal - best of both worlds.",
+            "AA": "Worrier variant (Met/Met). Slower dopamine breakdown means superior memory, attention to detail, and sustained focus - but more sensitive to stress and anxiety. Excel in calm, structured environments. Better at planning and analysis than crisis response. May ruminate more."
+          }
+        }
+      },
+      {
+        "rsid": "rs53576",
+        "name": "OXTR - The Empathy & Social Connection Gene",
+        "genotype": "AA",
+        "interpretation": "Lower empathy variant. More analytical than emotional in social situations. Less swayed by others' moods and emotions. May be more independent in decision-making. Better at maintaining objectivity in emotionally charged situations.",
+        "raw": {
+          "category": "mind",
+          "name": "OXTR - The Empathy & Social Connection Gene",
+          "genotypes": {
+            "GG": "Super empathy variant! You're naturally attuned to others' emotions, excel at reading social cues and facial expressions, and are likely very caring in relationships. More prosocial behavior - studies show GG individuals are more generous, charitable, and trusting. Seek social connection strongly. More affected by social rejection but also more emotionally supportive. Better parent/partner on average.",
+            "AG": "Moderate empathy. You read emotions well without being overwhelmed by them. Balanced social sensitivity and emotional resilience. Good at relationships but maintain healthy boundaries.",
+            "AA": "Lower empathy variant. More analytical than emotional in social situations. Less swayed by others' moods and emotions. May be more independent in decision-making. Better at maintaining objectivity in emotionally charged situations."
+          }
+        }
+      },
+      {
+        "rsid": "rs324420",
+        "name": "FAAH - The 'Bliss Gene' (Anandamide)",
+        "genotype": "AA",
+        "interpretation": "The 'worry-free' variant! Lower FAAH enzyme activity means higher levels of anandamide - your brain's natural 'bliss' molecule (similar to THC). Associated with: significantly lower anxiety, reduced fear of negative outcomes, faster forgetting of negative experiences, higher pain threshold, more optimistic outlook. May seem unflappable to others.",
+        "raw": {
+          "category": "mind",
+          "name": "FAAH - The 'Bliss Gene' (Anandamide)",
+          "genotypes": {
+            "AA": "The 'worry-free' variant! Lower FAAH enzyme activity means higher levels of anandamide - your brain's natural 'bliss' molecule (similar to THC). Associated with: significantly lower anxiety, reduced fear of negative outcomes, faster forgetting of negative experiences, higher pain threshold, more optimistic outlook. May seem unflappable to others.",
+            "AC": "Moderate anxiety levels. One copy of low-FAAH variant provides some stress buffering. Mixed profile for fear response and memory of negative events.",
+            "CC": "Normal FAAH activity and anandamide levels. Typical anxiety, stress response, and pain sensitivity. You experience the full range of worry and caution that helped humans survive - being alert to threats is adaptive even if uncomfortable."
+          }
+        }
+      },
+      {
+        "rsid": "rs1799971",
+        "name": "OPRM1 - Opioid Receptor (Pain Response & Reward)",
+        "genotype": "AA",
+        "interpretation": "Normal mu-opioid receptor function. Typical response to opioid pain medications and standard pain sensitivity. The most common variant.",
+        "raw": {
+          "category": "mind",
+          "name": "OPRM1 - Opioid Receptor (Pain Response & Reward)",
+          "genotypes": {
+            "GG": "Asn40Asp variant. Altered mu-opioid receptor. May need higher doses of opioid pain medications for relief. Different pain sensitivity - possibly higher pain threshold. May have different reward responses to pleasurable activities.",
+            "AG": "One copy of Asn40Asp variant. Moderate alterations in opioid response and pain sensitivity. Some effect on medication requirements.",
+            "AA": "Normal mu-opioid receptor function. Typical response to opioid pain medications and standard pain sensitivity. The most common variant."
+          }
+        }
+      }
+    ],
+    "summary": "Your cognitive and personality profile is shaped by 4 key genetic variants affecting neurotransmitter function, memory, and social behavior.",
+    "highlights": [
+      {
+        "rsid": "rs4680",
+        "name": "COMT - Warrior/Worrier Gene",
+        "genotype": "AA",
+        "interpretation": "Worrier variant (Met/Met). Slower dopamine breakdown means superior memory, attention to detail, and sustained focus - but more sensitive to stress and anxiety. Excel in calm, structured environments. Better at planning and analysis than crisis response. May ruminate more.",
+        "raw": {
+          "category": "mind",
+          "name": "COMT - Warrior/Worrier Gene",
+          "genotypes": {
+            "GG": "Warrior variant (Val/Val). Fast dopamine clearance in prefrontal cortex means you handle stress exceptionally well and think clearly under pressure. Thrive in chaos and high-stakes situations. May need more stimulation for detailed memory tasks. Better at 'thinking on your feet' than prolonged focus.",
+            "AG": "The Goldilocks genotype! Balanced warrior-worrier. You get excellent memory AND good stress performance. Cognitive flexibility - can focus deeply on details but also adapt quickly under pressure. This heterozygous state is considered optimal - best of both worlds.",
+            "AA": "Worrier variant (Met/Met). Slower dopamine breakdown means superior memory, attention to detail, and sustained focus - but more sensitive to stress and anxiety. Excel in calm, structured environments. Better at planning and analysis than crisis response. May ruminate more."
+          }
+        }
+      },
+      {
+        "rsid": "rs324420",
+        "name": "FAAH - The 'Bliss Gene' (Anandamide)",
+        "genotype": "AA",
+        "interpretation": "The 'worry-free' variant! Lower FAAH enzyme activity means higher levels of anandamide - your brain's natural 'bliss' molecule (similar to THC). Associated with: significantly lower anxiety, reduced fear of negative outcomes, faster forgetting of negative experiences, higher pain threshold, more optimistic outlook. May seem unflappable to others.",
+        "raw": {
+          "category": "mind",
+          "name": "FAAH - The 'Bliss Gene' (Anandamide)",
+          "genotypes": {
+            "AA": "The 'worry-free' variant! Lower FAAH enzyme activity means higher levels of anandamide - your brain's natural 'bliss' molecule (similar to THC). Associated with: significantly lower anxiety, reduced fear of negative outcomes, faster forgetting of negative experiences, higher pain threshold, more optimistic outlook. May seem unflappable to others.",
+            "AC": "Moderate anxiety levels. One copy of low-FAAH variant provides some stress buffering. Mixed profile for fear response and memory of negative events.",
+            "CC": "Normal FAAH activity and anandamide levels. Typical anxiety, stress response, and pain sensitivity. You experience the full range of worry and caution that helped humans survive - being alert to threats is adaptive even if uncomfortable."
+          }
+        }
+      }
+    ]
+  },
+  "performance": {
+    "category": "performance",
+    "traits": [
+      {
+        "rsid": "rs4994",
+        "name": "GNB3 - Endurance Capacity & Training Response",
+        "genotype": "AA",
+        "interpretation": "Associated with better endurance performance and sustained physical activity. May respond more favorably to aerobic/cardio training. Good for distance sports.",
+        "raw": {
+          "category": "performance",
+          "name": "GNB3 - Endurance Capacity & Training Response",
+          "genotypes": {
+            "AA": "Associated with better endurance performance and sustained physical activity. May respond more favorably to aerobic/cardio training. Good for distance sports.",
+            "AG": "Mixed profile for endurance vs power training response. Adaptable to various training types.",
+            "GG": "May favor power and strength activities over pure endurance. Could respond better to resistance training and high-intensity intervals."
+          }
+        }
+      },
+      {
+        "rsid": "rs699",
+        "name": "AGT - Blood Pressure Regulation & Endurance Response",
+        "genotype": "AA",
+        "interpretation": "Thr/Thr variant. May respond more favorably to power/strength training than pure endurance activities. Different blood pressure regulation pattern.",
+        "raw": {
+          "category": "performance",
+          "name": "AGT - Blood Pressure Regulation & Endurance Response",
+          "genotypes": {
+            "TT": "Met/Met variant. Associated with better cardiovascular response to endurance training and more efficient blood pressure regulation during sustained exercise. May excel at aerobic activities.",
+            "AT": "Mixed profile (Met/Thr). Balanced cardiovascular training response - can adapt to various exercise types.",
+            "AA": "Thr/Thr variant. May respond more favorably to power/strength training than pure endurance activities. Different blood pressure regulation pattern."
+          }
+        }
+      },
+      {
+        "rsid": "rs1042713",
+        "name": "ADRB2 - Beta-2 Receptor (Exercise Response)",
+        "genotype": "AA",
+        "interpretation": "Arg/Arg variant. Different beta-2 receptor sensitivity affecting cardiovascular response to training and stress.",
+        "raw": {
+          "category": "performance",
+          "name": "ADRB2 - Beta-2 Receptor (Exercise Response)",
+          "genotypes": {
+            "GG": "Gly/Gly variant. Enhanced beta-2 receptor function. May have better cardiovascular response to exercise and improved fat metabolism during activity.",
+            "AG": "Mixed Gly/Arg. Moderate beta-2 receptor effects on exercise performance and metabolism.",
+            "AA": "Arg/Arg variant. Different beta-2 receptor sensitivity affecting cardiovascular response to training and stress."
+          }
+        }
+      }
+    ],
+    "summary": "Your physical performance genetics show a unique combination of 3 variants affecting muscle type, endurance, and athletic potential.",
+    "highlights": []
+  },
+  "nutrition": {
+    "category": "nutrition",
+    "traits": [
+      {
+        "rsid": "rs4988235",
+        "name": "LCT - Lactase Persistence (Dairy Tolerance)",
+        "genotype": "AA",
+        "interpretation": "Lactase persistent! Can digest milk sugar (lactose) as an adult. This mutation arose ~10,000 years ago in Northern Europe with dairy farming and spread through populations that relied on milk. You can enjoy dairy without issues.",
+        "raw": {
+          "category": "nutrition",
+          "name": "LCT - Lactase Persistence (Dairy Tolerance)",
+          "genotypes": {
+            "AA": "Lactase persistent! Can digest milk sugar (lactose) as an adult. This mutation arose ~10,000 years ago in Northern Europe with dairy farming and spread through populations that relied on milk. You can enjoy dairy without issues.",
+            "AG": "Partially lactose tolerant. Some lactase enzyme continues into adulthood. May handle small amounts of dairy or aged cheeses (lower lactose) but not large quantities of milk.",
+            "GG": "Lactose intolerant (ancestral variant). Lactase production stops after childhood - you cannot digest milk sugar. Found in ~90% of East Asians, ~90% of West Africans, ~70% of Southern Europeans, ~90% of Middle Easterners. Use lactose-free dairy or avoid dairy altogether."
+          }
+        }
+      },
+      {
+        "rsid": "rs762551",
+        "name": "CYP1A2 - Caffeine Metabolism Speed",
+        "genotype": "AA",
+        "interpretation": "Fast caffeine metabolizer! You clear caffeine from your system rapidly (~4 hours). Can drink espresso at 8 PM and sleep fine. May need that afternoon cup since morning coffee wears off quickly. Caffeine less likely to cause jitters, anxiety, or heart palpitations. Lucky genotype for coffee lovers!",
+        "raw": {
+          "category": "nutrition",
+          "name": "CYP1A2 - Caffeine Metabolism Speed",
+          "genotypes": {
+            "AA": "Fast caffeine metabolizer! You clear caffeine from your system rapidly (~4 hours). Can drink espresso at 8 PM and sleep fine. May need that afternoon cup since morning coffee wears off quickly. Caffeine less likely to cause jitters, anxiety, or heart palpitations. Lucky genotype for coffee lovers!",
+            "AC": "Moderate caffeine metabolism (~6 hours clearance). Typical coffee response - energizing in morning, but late afternoon coffee may affect evening sleep. Most people fall here.",
+            "CC": "Slow caffeine metabolizer (~8+ hours). Caffeine lingers in your system much longer. Even morning coffee can affect afternoon heart rate and evening sleep. Associated with higher risk of heart issues from excess caffeine. Consider limiting intake to 1-2 cups before noon, or switch to decaf/tea."
+          }
+        }
+      },
+      {
+        "rsid": "rs671",
+        "name": "ALDH2 - Alcohol Flush Response (Asian Flush)",
+        "genotype": "AA",
+        "interpretation": "Strong alcohol flush response! Face turns bright red, nausea, headaches, rapid heartbeat even from small amounts of alcohol. Acetaldehyde accumulates to toxic levels. Found in ~30-50% of East Asians. IMPORTANT: This genotype substantially increases cancer risk (especially esophageal) from alcohol - strongly consider limiting or avoiding alcohol.",
+        "raw": {
+          "category": "nutrition",
+          "name": "ALDH2 - Alcohol Flush Response (Asian Flush)",
+          "genotypes": {
+            "GG": "Normal alcohol metabolism. No 'Asian flush' reaction. You process toxic acetaldehyde (alcohol byproduct) efficiently without turning red or feeling sick. Typical alcohol tolerance.",
+            "GA": "One copy of slow ALDH2 variant. Moderate alcohol flush and sensitivity - face may turn red when drinking, some nausea or rapid heartbeat. Acetaldehyde accumulates moderately. This actually protects against alcoholism since drinking feels unpleasant.",
+            "AA": "Strong alcohol flush response! Face turns bright red, nausea, headaches, rapid heartbeat even from small amounts of alcohol. Acetaldehyde accumulates to toxic levels. Found in ~30-50% of East Asians. IMPORTANT: This genotype substantially increases cancer risk (especially esophageal) from alcohol - strongly consider limiting or avoiding alcohol."
+          }
+        }
+      },
+      {
+        "rsid": "rs9939609",
+        "name": "FTO - The Appetite & Weight Gene",
+        "genotype": "AA",
+        "interpretation": "Two copies of higher appetite variant. Associated with increased BMI (+3-4 kg on average), stronger hunger signals, more food cravings, and reduced satiety. You may feel hungry more often and think about food more. DOESN'T mean obesity is inevitable - just means mindful eating, portion control, and choosing filling foods (protein, fiber) are extra important for you.",
+        "raw": {
+          "category": "nutrition",
+          "name": "FTO - The Appetite & Weight Gene",
+          "genotypes": {
+            "AA": "Two copies of higher appetite variant. Associated with increased BMI (+3-4 kg on average), stronger hunger signals, more food cravings, and reduced satiety. You may feel hungry more often and think about food more. DOESN'T mean obesity is inevitable - just means mindful eating, portion control, and choosing filling foods (protein, fiber) are extra important for you.",
+            "AT": "One copy of FTO appetite variant (+1-2 kg effect on BMI). Moderate effect on hunger signaling and weight management. Noticeable but manageable with good habits.",
+            "TT": "Lower appetite variant. Better natural satiety signals - you feel full sooner and stay satisfied longer. Easier time with weight management. Your brain's hunger/fullness signals are more favorable."
+          }
+        }
+      },
+      {
+        "rsid": "rs174537",
+        "name": "FADS1 - Omega-3 Fatty Acid Conversion",
+        "genotype": "AA",
+        "interpretation": "Poor omega-3 conversion (<30% efficient). You struggle to make EPA/DHA from plant ALA. Should prioritize direct sources: fatty fish (salmon, sardines, mackerel) or algae-based supplements. Plant sources alone won't give you adequate EPA/DHA.",
+        "raw": {
+          "category": "nutrition",
+          "name": "FADS1 - Omega-3 Fatty Acid Conversion",
+          "genotypes": {
+            "GG": "Excellent omega-3 processor! You efficiently convert plant-based ALA (from flax, chia, walnuts) into EPA and DHA (the forms used by brain and body). Vegetarian/vegan omega-3 sources work great for you. Can get adequate omega-3s without fish.",
+            "AG": "Moderate omega-3 conversion ability (~50% efficient). Mix of plant and fish sources recommended for optimal levels. Not terrible at conversion but not optimal either.",
+            "AA": "Poor omega-3 conversion (<30% efficient). You struggle to make EPA/DHA from plant ALA. Should prioritize direct sources: fatty fish (salmon, sardines, mackerel) or algae-based supplements. Plant sources alone won't give you adequate EPA/DHA."
+          }
+        }
+      },
+      {
+        "rsid": "rs1801133",
+        "name": "MTHFR - Folate Processing (C677T Variant)",
+        "genotype": "AA",
+        "interpretation": "C677T/C677T variant (~30% enzyme activity). Significantly reduced MTHFR function. Higher risk of elevated homocysteine (linked to cardiovascular issues). Should ensure excellent folate intake - eat plenty of leafy greens, beans. May benefit from methylfolate (active form) supplements rather than regular folic acid. Important if pregnant (folate crucial for fetal development).",
+        "raw": {
+          "category": "nutrition",
+          "name": "MTHFR - Folate Processing (C677T Variant)",
+          "genotypes": {
+            "GG": "Normal MTHFR enzyme function (100% activity). You efficiently process folate for DNA synthesis, methylation, and homocysteine metabolism. Standard dietary folate from leafy greens, legumes is perfectly fine.",
+            "AG": "One copy of C677T variant (~65% enzyme activity). Mildly reduced folate processing. Generally not problematic with a healthy diet. Homocysteine may be slightly elevated. Ensure good folate intake from diet.",
+            "AA": "C677T/C677T variant (~30% enzyme activity). Significantly reduced MTHFR function. Higher risk of elevated homocysteine (linked to cardiovascular issues). Should ensure excellent folate intake - eat plenty of leafy greens, beans. May benefit from methylfolate (active form) supplements rather than regular folic acid. Important if pregnant (folate crucial for fetal development)."
+          }
+        }
+      },
+      {
+        "rsid": "rs602662",
+        "name": "TAS1R3 - Umami Taste Sensitivity",
+        "genotype": "AA",
+        "interpretation": "Enhanced umami detection! Savory, glutamate-rich flavors are intense and delicious for you. MSG, mushrooms, aged cheese, tomatoes, soy sauce, parmesan, bone broth taste AMAZING. The glutamate-sensitive variant makes savory foods more rewarding.",
+        "raw": {
+          "category": "nutrition",
+          "name": "TAS1R3 - Umami Taste Sensitivity",
+          "genotypes": {
+            "AA": "Enhanced umami detection! Savory, glutamate-rich flavors are intense and delicious for you. MSG, mushrooms, aged cheese, tomatoes, soy sauce, parmesan, bone broth taste AMAZING. The glutamate-sensitive variant makes savory foods more rewarding.",
+            "AG": "Moderate umami sensitivity. Savory flavors taste good but not overwhelmingly so. Average response to glutamate-rich foods.",
+            "GG": "Lower umami sensitivity. Savory/glutamate flavors are less pronounced for you. May not understand the hype about MSG or aged cheeses."
+          }
+        }
+      }
+    ],
+    "summary": "Your metabolic profile includes 7 genetic variants that influence how you process food, taste, and nutrients.",
+    "highlights": [
+      {
+        "rsid": "rs762551",
+        "name": "CYP1A2 - Caffeine Metabolism Speed",
+        "genotype": "AA",
+        "interpretation": "Fast caffeine metabolizer! You clear caffeine from your system rapidly (~4 hours). Can drink espresso at 8 PM and sleep fine. May need that afternoon cup since morning coffee wears off quickly. Caffeine less likely to cause jitters, anxiety, or heart palpitations. Lucky genotype for coffee lovers!",
+        "raw": {
+          "category": "nutrition",
+          "name": "CYP1A2 - Caffeine Metabolism Speed",
+          "genotypes": {
+            "AA": "Fast caffeine metabolizer! You clear caffeine from your system rapidly (~4 hours). Can drink espresso at 8 PM and sleep fine. May need that afternoon cup since morning coffee wears off quickly. Caffeine less likely to cause jitters, anxiety, or heart palpitations. Lucky genotype for coffee lovers!",
+            "AC": "Moderate caffeine metabolism (~6 hours clearance). Typical coffee response - energizing in morning, but late afternoon coffee may affect evening sleep. Most people fall here.",
+            "CC": "Slow caffeine metabolizer (~8+ hours). Caffeine lingers in your system much longer. Even morning coffee can affect afternoon heart rate and evening sleep. Associated with higher risk of heart issues from excess caffeine. Consider limiting intake to 1-2 cups before noon, or switch to decaf/tea."
+          }
+        }
+      },
+      {
+        "rsid": "rs671",
+        "name": "ALDH2 - Alcohol Flush Response (Asian Flush)",
+        "genotype": "AA",
+        "interpretation": "Strong alcohol flush response! Face turns bright red, nausea, headaches, rapid heartbeat even from small amounts of alcohol. Acetaldehyde accumulates to toxic levels. Found in ~30-50% of East Asians. IMPORTANT: This genotype substantially increases cancer risk (especially esophageal) from alcohol - strongly consider limiting or avoiding alcohol.",
+        "raw": {
+          "category": "nutrition",
+          "name": "ALDH2 - Alcohol Flush Response (Asian Flush)",
+          "genotypes": {
+            "GG": "Normal alcohol metabolism. No 'Asian flush' reaction. You process toxic acetaldehyde (alcohol byproduct) efficiently without turning red or feeling sick. Typical alcohol tolerance.",
+            "GA": "One copy of slow ALDH2 variant. Moderate alcohol flush and sensitivity - face may turn red when drinking, some nausea or rapid heartbeat. Acetaldehyde accumulates moderately. This actually protects against alcoholism since drinking feels unpleasant.",
+            "AA": "Strong alcohol flush response! Face turns bright red, nausea, headaches, rapid heartbeat even from small amounts of alcohol. Acetaldehyde accumulates to toxic levels. Found in ~30-50% of East Asians. IMPORTANT: This genotype substantially increases cancer risk (especially esophageal) from alcohol - strongly consider limiting or avoiding alcohol."
+          }
+        }
+      },
+      {
+        "rsid": "rs9939609",
+        "name": "FTO - The Appetite & Weight Gene",
+        "genotype": "AA",
+        "interpretation": "Two copies of higher appetite variant. Associated with increased BMI (+3-4 kg on average), stronger hunger signals, more food cravings, and reduced satiety. You may feel hungry more often and think about food more. DOESN'T mean obesity is inevitable - just means mindful eating, portion control, and choosing filling foods (protein, fiber) are extra important for you.",
+        "raw": {
+          "category": "nutrition",
+          "name": "FTO - The Appetite & Weight Gene",
+          "genotypes": {
+            "AA": "Two copies of higher appetite variant. Associated with increased BMI (+3-4 kg on average), stronger hunger signals, more food cravings, and reduced satiety. You may feel hungry more often and think about food more. DOESN'T mean obesity is inevitable - just means mindful eating, portion control, and choosing filling foods (protein, fiber) are extra important for you.",
+            "AT": "One copy of FTO appetite variant (+1-2 kg effect on BMI). Moderate effect on hunger signaling and weight management. Noticeable but manageable with good habits.",
+            "TT": "Lower appetite variant. Better natural satiety signals - you feel full sooner and stay satisfied longer. Easier time with weight management. Your brain's hunger/fullness signals are more favorable."
+          }
+        }
+      }
+    ]
+  },
+  "health": {
+    "category": "health",
+    "traits": [
+      {
+        "rsid": "rs1800562",
+        "name": "HFE - Hereditary Hemochromatosis (C282Y)",
+        "genotype": "AA",
+        "interpretation": "C282Y/C282Y - HIGH RISK for hereditary hemochromatosis! Your body absorbs excessive iron from food, leading to iron overload. Can cause: liver cirrhosis, diabetes, heart problems, joint pain, bronze skin. Most common genetic disease in Europeans (1 in 200). GET TESTED: Serum iron, ferritin, transferrin saturation. Treatment is simple: therapeutic phlebotomy (blood donation). Avoid iron supplements and excessive red meat.",
+        "raw": {
+          "category": "health",
+          "name": "HFE - Hereditary Hemochromatosis (C282Y)",
+          "genotypes": {
+            "AA": "C282Y/C282Y - HIGH RISK for hereditary hemochromatosis! Your body absorbs excessive iron from food, leading to iron overload. Can cause: liver cirrhosis, diabetes, heart problems, joint pain, bronze skin. Most common genetic disease in Europeans (1 in 200). GET TESTED: Serum iron, ferritin, transferrin saturation. Treatment is simple: therapeutic phlebotomy (blood donation). Avoid iron supplements and excessive red meat.",
+            "AG": "Carrier for hemochromatosis (one C282Y copy). Low personal risk unless you also have H63D variant. Important for family planning - if partner is also carrier, children could have disease. Monitor iron levels occasionally.",
+            "GG": "No C282Y mutation. Very low hemochromatosis risk from this variant (could still have H63D). Normal iron absorption and metabolism."
+          }
+        }
+      },
+      {
+        "rsid": "rs1051730",
+        "name": "CHRNA3 - Nicotine Dependence & Lung Cancer",
+        "genotype": "AA",
+        "interpretation": "Higher risk of nicotine addiction if you smoke. Also 30% increased lung cancer risk per copy of A allele - even more reason not to smoke. The A variant affects nicotinic receptors in brain reward pathways.",
+        "raw": {
+          "category": "health",
+          "name": "CHRNA3 - Nicotine Dependence & Lung Cancer",
+          "genotypes": {
+            "AA": "Higher risk of nicotine addiction if you smoke. Also 30% increased lung cancer risk per copy of A allele - even more reason not to smoke. The A variant affects nicotinic receptors in brain reward pathways.",
+            "AG": "Moderate nicotine dependence risk and slightly elevated lung cancer susceptibility if smoking.",
+            "GG": "Lower nicotine addiction risk. If you smoke, may find it easier to quit. Still shouldn't smoke, but genetics are more favorable."
+          }
+        }
+      },
+      {
+        "rsid": "rs16969968",
+        "name": "CHRNA5 - Nicotine Dependence & Smoking Quantity",
+        "genotype": "AA",
+        "interpretation": "Higher nicotine dependence risk. Smoke more cigarettes per day if you smoke. Harder time quitting. Also associated with COPD and lung cancer risk.",
+        "raw": {
+          "category": "health",
+          "name": "CHRNA5 - Nicotine Dependence & Smoking Quantity",
+          "genotypes": {
+            "AA": "Higher nicotine dependence risk. Smoke more cigarettes per day if you smoke. Harder time quitting. Also associated with COPD and lung cancer risk.",
+            "AG": "Moderate nicotine dependence and smoking intensity.",
+            "GG": "Lower nicotine addiction vulnerability. May smoke fewer cigarettes per day if you do smoke."
+          }
+        }
+      },
+      {
+        "rsid": "rs1800629",
+        "name": "TNF-alpha - Inflammation & Autoimmune Risk",
+        "genotype": "AA",
+        "interpretation": "Higher TNF-alpha production. Increased inflammation and higher risk of autoimmune conditions (rheumatoid arthritis, inflammatory bowel disease). May respond better to anti-TNF biologics if needed.",
+        "raw": {
+          "category": "health",
+          "name": "TNF-alpha - Inflammation & Autoimmune Risk",
+          "genotypes": {
+            "AA": "Higher TNF-alpha production. Increased inflammation and higher risk of autoimmune conditions (rheumatoid arthritis, inflammatory bowel disease). May respond better to anti-TNF biologics if needed.",
+            "AG": "Moderate TNF-alpha levels and inflammation tendency.",
+            "GG": "Normal TNF-alpha production. Typical inflammatory response."
+          }
+        }
+      },
+      {
+        "rsid": "rs231775",
+        "name": "CTLA4 - Autoimmune Disease Risk",
+        "genotype": "AA",
+        "interpretation": "Lower autoimmune disease risk. Better immune regulation through CTLA4 pathway.",
+        "raw": {
+          "category": "health",
+          "name": "CTLA4 - Autoimmune Disease Risk",
+          "genotypes": {
+            "GG": "Higher autoimmune disease risk, especially Type 1 diabetes, Hashimoto's thyroiditis, Graves' disease. CTLA4 regulates immune system - this variant increases self-attack. Monitor thyroid function. Watch for autoimmune symptoms.",
+            "AG": "Moderately elevated autoimmune susceptibility. One copy of risk variant. Be aware of autoimmune disease symptoms.",
+            "AA": "Lower autoimmune disease risk. Better immune regulation through CTLA4 pathway."
+          }
+        }
+      },
+      {
+        "rsid": "rs11209026",
+        "name": "IL23R - Crohn's Disease Protection",
+        "genotype": "AA",
+        "interpretation": "HIGHLY PROTECTIVE against Crohn's disease and ulcerative colitis! The rare A allele provides strong IBD protection. Very lucky variant.",
+        "raw": {
+          "category": "health",
+          "name": "IL23R - Crohn's Disease Protection",
+          "genotypes": {
+            "AA": "HIGHLY PROTECTIVE against Crohn's disease and ulcerative colitis! The rare A allele provides strong IBD protection. Very lucky variant.",
+            "AG": "Partial protection against inflammatory bowel disease. One copy of protective variant reduces risk.",
+            "GG": "No special IBD protection. Typical Crohn's/UC risk for your population."
+          }
+        }
+      },
+      {
+        "rsid": "rs601338",
+        "name": "FUT2 - Secretor Status & Gut Microbiome",
+        "genotype": "AA",
+        "interpretation": "Secretor! You secrete ABO blood antigens in saliva, tears, and gut. ~80% of people. Affects gut microbiome composition, norovirus susceptibility (secretors are more vulnerable), and vitamin B12 absorption. Different microbiome than non-secretors.",
+        "raw": {
+          "category": "health",
+          "name": "FUT2 - Secretor Status & Gut Microbiome",
+          "genotypes": {
+            "AA": "Secretor! You secrete ABO blood antigens in saliva, tears, and gut. ~80% of people. Affects gut microbiome composition, norovirus susceptibility (secretors are more vulnerable), and vitamin B12 absorption. Different microbiome than non-secretors.",
+            "AG": "Heterozygous secretor. Partial secretion of blood antigens. Intermediate effects.",
+            "GG": "Non-secretor. Don't secrete ABO antigens in body fluids. ~20% of people. Different gut bacteria, resistant to many norovirus strains, possibly different B12 needs."
+          }
+        }
+      },
+      {
+        "rsid": "rs1799990",
+        "name": "PRNP - Prion Disease Resistance",
+        "genotype": "AA",
+        "interpretation": "M/M homozygote. Higher susceptibility to prion diseases, though still very rare. Most CJD cases occur in M/M individuals.",
+        "raw": {
+          "category": "health",
+          "name": "PRNP - Prion Disease Resistance",
+          "genotypes": {
+            "AG": "PROTECTIVE heterozygosity! Having one M and one V allele at codon 129 provides strong resistance to prion diseases (Creutzfeldt-Jakob disease, kuru). Heterozygotes rarely get prion diseases. This is the favorable genotype.",
+            "AA": "M/M homozygote. Higher susceptibility to prion diseases, though still very rare. Most CJD cases occur in M/M individuals.",
+            "GG": "V/V homozygote. Moderate prion disease risk. Less susceptible than M/M but not as protected as heterozygotes."
+          }
+        }
+      }
+    ],
+    "summary": "Your health profile includes 8 genetic variants affecting disease risk, immune function, and medical considerations.",
+    "highlights": [
+      {
+        "rsid": "rs1800562",
+        "name": "HFE - Hereditary Hemochromatosis (C282Y)",
+        "genotype": "AA",
+        "interpretation": "C282Y/C282Y - HIGH RISK for hereditary hemochromatosis! Your body absorbs excessive iron from food, leading to iron overload. Can cause: liver cirrhosis, diabetes, heart problems, joint pain, bronze skin. Most common genetic disease in Europeans (1 in 200). GET TESTED: Serum iron, ferritin, transferrin saturation. Treatment is simple: therapeutic phlebotomy (blood donation). Avoid iron supplements and excessive red meat.",
+        "raw": {
+          "category": "health",
+          "name": "HFE - Hereditary Hemochromatosis (C282Y)",
+          "genotypes": {
+            "AA": "C282Y/C282Y - HIGH RISK for hereditary hemochromatosis! Your body absorbs excessive iron from food, leading to iron overload. Can cause: liver cirrhosis, diabetes, heart problems, joint pain, bronze skin. Most common genetic disease in Europeans (1 in 200). GET TESTED: Serum iron, ferritin, transferrin saturation. Treatment is simple: therapeutic phlebotomy (blood donation). Avoid iron supplements and excessive red meat.",
+            "AG": "Carrier for hemochromatosis (one C282Y copy). Low personal risk unless you also have H63D variant. Important for family planning - if partner is also carrier, children could have disease. Monitor iron levels occasionally.",
+            "GG": "No C282Y mutation. Very low hemochromatosis risk from this variant (could still have H63D). Normal iron absorption and metabolism."
+          }
+        }
+      },
+      {
+        "rsid": "rs11209026",
+        "name": "IL23R - Crohn's Disease Protection",
+        "genotype": "AA",
+        "interpretation": "HIGHLY PROTECTIVE against Crohn's disease and ulcerative colitis! The rare A allele provides strong IBD protection. Very lucky variant.",
+        "raw": {
+          "category": "health",
+          "name": "IL23R - Crohn's Disease Protection",
+          "genotypes": {
+            "AA": "HIGHLY PROTECTIVE against Crohn's disease and ulcerative colitis! The rare A allele provides strong IBD protection. Very lucky variant.",
+            "AG": "Partial protection against inflammatory bowel disease. One copy of protective variant reduces risk.",
+            "GG": "No special IBD protection. Typical Crohn's/UC risk for your population."
+          }
+        }
+      }
+    ]
+  },
+  "senses": {
+    "category": "senses",
+    "traits": [
+      {
+        "rsid": "rs1726866",
+        "name": "Asparagus Metabolite Detection (Olfactory)",
+        "genotype": "AA",
+        "interpretation": "Super-smeller! You detect the asparagus metabolite odor VERY strongly. The distinctive smell after eating asparagus is overwhelming for you. About 40% of people have this genetic ability.",
+        "raw": {
+          "category": "senses",
+          "name": "Asparagus Metabolite Detection (Olfactory)",
+          "genotypes": {
+            "AA": "Super-smeller! You detect the asparagus metabolite odor VERY strongly. The distinctive smell after eating asparagus is overwhelming for you. About 40% of people have this genetic ability.",
+            "AG": "Moderate detection of asparagus smell. You can smell it but not as intensely.",
+            "GG": "Non-smeller (or very weak detection). You likely don't notice the distinctive asparagus odor in urine. The metabolite is still produced - you just can't detect it. ~60% of people are like you."
+          }
+        }
+      }
+    ],
+    "summary": "Your physical appearance and sensory traits are influenced by 1 genetic markers.",
+    "highlights": [
+      {
+        "rsid": "rs1726866",
+        "name": "Asparagus Metabolite Detection (Olfactory)",
+        "genotype": "AA",
+        "interpretation": "Super-smeller! You detect the asparagus metabolite odor VERY strongly. The distinctive smell after eating asparagus is overwhelming for you. About 40% of people have this genetic ability.",
+        "raw": {
+          "category": "senses",
+          "name": "Asparagus Metabolite Detection (Olfactory)",
+          "genotypes": {
+            "AA": "Super-smeller! You detect the asparagus metabolite odor VERY strongly. The distinctive smell after eating asparagus is overwhelming for you. About 40% of people have this genetic ability.",
+            "AG": "Moderate detection of asparagus smell. You can smell it but not as intensely.",
+            "GG": "Non-smeller (or very weak detection). You likely don't notice the distinctive asparagus odor in urine. The metabolite is still produced - you just can't detect it. ~60% of people are like you."
+          }
+        }
+      }
+    ]
+  },
+  "longevity": {
+    "category": "longevity",
+    "traits": [
+      {
+        "rsid": "rs10757274",
+        "name": "9p21 - Cardiovascular Aging (Another Position)",
+        "genotype": "AA",
+        "interpretation": "Higher cardiovascular disease risk from 9p21 region. Same locus as rs1333049 - one of strongest heart disease risk factors.",
+        "raw": {
+          "category": "longevity",
+          "name": "9p21 - Cardiovascular Aging (Another Position)",
+          "genotypes": {
+            "GG": "Protective for cardiovascular aging! Lower risk of coronary artery disease and heart attacks. Part of favorable 9p21 haplotype.",
+            "AG": "Moderate cardiovascular aging profile.",
+            "AA": "Higher cardiovascular disease risk from 9p21 region. Same locus as rs1333049 - one of strongest heart disease risk factors."
+          }
+        }
+      },
+      {
+        "rsid": "rs10757278",
+        "name": "9p21 - Cardiovascular Aging (Third Position)",
+        "genotype": "AA",
+        "interpretation": "Elevated coronary artery disease risk. Part of 9p21 risk haplotype.",
+        "raw": {
+          "category": "longevity",
+          "name": "9p21 - Cardiovascular Aging (Third Position)",
+          "genotypes": {
+            "GG": "Protective for heart disease. Favorable 9p21 genotype associated with better cardiovascular aging.",
+            "AG": "Intermediate cardiovascular risk.",
+            "AA": "Elevated coronary artery disease risk. Part of 9p21 risk haplotype."
+          }
+        }
+      },
+      {
+        "rsid": "rs4420638",
+        "name": "APOC1/APOE - Cognitive Aging",
+        "genotype": "AA",
+        "interpretation": "Variant near APOE affecting cognitive aging and potentially Alzheimer's risk through cholesterol metabolism.",
+        "raw": {
+          "category": "longevity",
+          "name": "APOC1/APOE - Cognitive Aging",
+          "genotypes": {
+            "AA": "Variant near APOE affecting cognitive aging and potentially Alzheimer's risk through cholesterol metabolism.",
+            "AG": "Heterozygous for APOC1 region variant.",
+            "GG": "Protective variant for cognitive aging in APOE/APOC1 region."
+          }
+        }
+      },
+      {
+        "rsid": "rs5882",
+        "name": "CETP - HDL Cholesterol & Longevity",
+        "genotype": "AA",
+        "interpretation": "CETP I405V variant. Associated with higher HDL ('good') cholesterol, larger lipoprotein particles, and longevity in some populations. The A allele reduces CETP activity.",
+        "raw": {
+          "category": "longevity",
+          "name": "CETP - HDL Cholesterol & Longevity",
+          "genotypes": {
+            "AA": "CETP I405V variant. Associated with higher HDL ('good') cholesterol, larger lipoprotein particles, and longevity in some populations. The A allele reduces CETP activity.",
+            "AG": "Intermediate CETP activity and HDL levels.",
+            "GG": "Higher CETP activity. May have lower HDL cholesterol. The G/G genotype is more common but less favorable for HDL levels."
+          }
+        }
+      },
+      {
+        "rsid": "rs1800896",
+        "name": "IL-10 - Anti-inflammatory Longevity",
+        "genotype": "AA",
+        "interpretation": "Higher IL-10 production. IL-10 is anti-inflammatory - high producers may have better control of chronic inflammation, which is key to healthy aging. Associated with longevity in some studies.",
+        "raw": {
+          "category": "longevity",
+          "name": "IL-10 - Anti-inflammatory Longevity",
+          "genotypes": {
+            "AA": "Higher IL-10 production. IL-10 is anti-inflammatory - high producers may have better control of chronic inflammation, which is key to healthy aging. Associated with longevity in some studies.",
+            "AG": "Moderate IL-10 (anti-inflammatory cytokine) production.",
+            "GG": "Lower IL-10 production. May have higher chronic inflammation with aging."
+          }
+        }
+      },
+      {
+        "rsid": "rs2075650",
+        "name": "TOMM40 - Mitochondrial Import (Near APOE)",
+        "genotype": "AA",
+        "interpretation": "Variant in TOMM40 gene (near APOE) affecting mitochondrial protein import. May influence cognitive aging and Alzheimer's risk through mitochondrial function.",
+        "raw": {
+          "category": "longevity",
+          "name": "TOMM40 - Mitochondrial Import (Near APOE)",
+          "genotypes": {
+            "AA": "Variant in TOMM40 gene (near APOE) affecting mitochondrial protein import. May influence cognitive aging and Alzheimer's risk through mitochondrial function.",
+            "AG": "Heterozygous for TOMM40 variant.",
+            "GG": "TOMM40 variant linked to cognitive aging and potentially lifespan through mitochondrial health."
+          }
+        }
+      },
+      {
+        "rsid": "rs9340799",
+        "name": "ESR1 - Estrogen Receptor (Another Position)",
+        "genotype": "AA",
+        "interpretation": "Estrogen receptor variant affecting bone density, cardiovascular health, and longevity-related pathways.",
+        "raw": {
+          "category": "longevity",
+          "name": "ESR1 - Estrogen Receptor (Another Position)",
+          "genotypes": {
+            "AA": "Estrogen receptor variant affecting bone density, cardiovascular health, and longevity-related pathways.",
+            "AG": "Heterozygous for ESR1 affecting aging-related traits.",
+            "GG": "ESR1 variant influencing healthy aging through estrogen signaling."
+          }
+        }
+      }
+    ],
+    "summary": "Your longevity and aging profile includes 7 critical variants affecting lifespan potential, cardiovascular health, and cellular resilience.",
+    "highlights": [
+      {
+        "rsid": "rs10757274",
+        "name": "9p21 - Cardiovascular Aging (Another Position)",
+        "genotype": "AA",
+        "interpretation": "Higher cardiovascular disease risk from 9p21 region. Same locus as rs1333049 - one of strongest heart disease risk factors.",
+        "raw": {
+          "category": "longevity",
+          "name": "9p21 - Cardiovascular Aging (Another Position)",
+          "genotypes": {
+            "GG": "Protective for cardiovascular aging! Lower risk of coronary artery disease and heart attacks. Part of favorable 9p21 haplotype.",
+            "AG": "Moderate cardiovascular aging profile.",
+            "AA": "Higher cardiovascular disease risk from 9p21 region. Same locus as rs1333049 - one of strongest heart disease risk factors."
+          }
+        }
+      }
+    ]
+  }
+}

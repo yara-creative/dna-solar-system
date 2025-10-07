@@ -414,16 +414,81 @@ function init() {
 
     const demoBtn = document.getElementById('demo-btn');
     if (demoBtn) {
-        demoBtn.addEventListener('click', async () => {
-            try {
-                const response = await fetch('dummy_upload.txt');
-                const text = await response.text();
-                const blob = new Blob([text], { type: 'text/plain' });
-                const file = new File([blob], 'dummy_upload.txt', { type: 'text/plain' });
-                handleFileUpload(file);
-            } catch (error) {
-                console.error('Error loading dummy file:', error);
-            }
+        demoBtn.addEventListener('click', () => {
+            // Hide upload UI
+            const uploadArea = document.getElementById('upload-area');
+            const exampleLink = document.getElementById('example-link');
+            const textContent = document.getElementById('text-content');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            uploadArea.style.display = 'none';
+            if (exampleLink) exampleLink.style.display = 'none';
+            demoBtn.style.display = 'none';
+            
+            // Load pre-computed demo analysis
+            window.dnaAnalysis = DEMO_DNA_ANALYSIS;
+            
+            // Create analyzer with dummy data for shape generation
+            window.dnaAnalyzer = new DNAAnalyzer(window.knowledgeBase.KNOWLEDGE_BASE);
+            
+            // Create parsedData Map from demo analysis
+            const parsedData = new Map();
+            Object.values(DEMO_DNA_ANALYSIS).forEach(category => {
+                if (category.traits) {
+                    category.traits.forEach(trait => {
+                        parsedData.set(trait.rsid, {
+                            rsid: trait.rsid,
+                            genotype: trait.genotype
+                        });
+                    });
+                }
+            });
+            
+            window.dnaAnalyzer.parsedData = parsedData;
+            window.dnaAnalyzer.matchedSnps = Array.from(parsedData.values());
+            
+            // Show text animation
+            textContent.style.opacity = '0';
+            setTimeout(() => {
+                const textLines = [
+                    '<span class="iridescent-title">Your DNA Solar System</span>',
+                    'Welcome to your personal solar system artwork where your DNA decides each planet\'s shape.',
+                    'Click on a planet to learn fun facts about your DNA.',
+                    'Click \'Download PDF\' to save a summary of your insights.',
+                    'Click the camera icon in the lower right corner anytime to save snapshots of your artwork!'
+                ];
+
+                textContent.innerHTML = '';
+                textContent.style.opacity = '1';
+
+                window.textAnimationTimeouts = [];
+                textLines.forEach((line, index) => {
+                    const timeoutId = setTimeout(() => {
+                        const lineDiv = document.createElement('div');
+                        lineDiv.className = 'text-line';
+                        lineDiv.innerHTML = line;
+                        if (index > 0) {
+                            const br1 = document.createElement('br');
+                            const br2 = document.createElement('br');
+                            textContent.appendChild(br1);
+                            textContent.appendChild(br2);
+                        }
+                        textContent.appendChild(lineDiv);
+
+                        setTimeout(() => {
+                            lineDiv.classList.add('visible');
+                        }, 50);
+                    }, index * 1200);
+                    window.textAnimationTimeouts.push(timeoutId);
+                });
+            }, 100);
+            
+            downloadBtn.classList.add('visible');
+            
+            console.log('Demo: Starting transition with analysis:', window.dnaAnalysis);
+            console.log('Demo: Analyzer:', window.dnaAnalyzer);
+            
+            startTransition();
         });
     }
 }
