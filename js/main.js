@@ -310,8 +310,9 @@ async function handleFileUpload(file) {
                 textContent.innerHTML = '';
                 textContent.style.opacity = '1';
 
+                window.textAnimationTimeouts = [];
                 textLines.forEach((line, index) => {
-                    setTimeout(() => {
+                    const timeoutId = setTimeout(() => {
                         const lineDiv = document.createElement('div');
                         lineDiv.className = 'text-line';
                         lineDiv.innerHTML = line;
@@ -327,6 +328,7 @@ async function handleFileUpload(file) {
                             lineDiv.classList.add('visible');
                         }, 50);
                     }, index * 1200);
+                    window.textAnimationTimeouts.push(timeoutId);
                 });
             }, 500);
         }, 500);
@@ -916,6 +918,11 @@ function zoomToObject(objData) {
 }
 
 function updateTextPanel(objData) {
+    if (window.textAnimationTimeouts) {
+        window.textAnimationTimeouts.forEach(id => clearTimeout(id));
+        window.textAnimationTimeouts = [];
+    }
+
     const categories = [
         { name: 'Sleep', key: 'sleep', subtitle: 'Your sleep, energy, and daily cycles' },
         { name: 'Mind', key: 'mind', subtitle: 'How you think, feel, and focus' },
