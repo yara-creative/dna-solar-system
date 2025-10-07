@@ -416,7 +416,7 @@ function init() {
     if (demoBtn) {
         demoBtn.addEventListener('click', async () => {
             try {
-                const response = await fetch('assets/dummy_upload.txt');
+                const response = await fetch('dummy_upload.txt');
                 const text = await response.text();
                 const blob = new Blob([text], { type: 'text/plain' });
                 const file = new File([blob], 'dummy_upload.txt', { type: 'text/plain' });
