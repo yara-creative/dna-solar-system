@@ -225,8 +225,10 @@ async function handleFileUpload(file) {
     const uploadArea = document.getElementById('upload-area');
     const textContent = document.getElementById('text-content');
     const downloadBtn = document.getElementById('download-btn');
+    const exampleLink = document.getElementById('example-link');
     
     uploadArea.style.display = 'none';
+    if (exampleLink) exampleLink.style.display = 'none';
     loadingContainer.style.display = 'block';
     loadingBar.style.width = '10%';
     

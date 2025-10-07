@@ -150,8 +150,9 @@ canvas {
 }
 #upload-text {
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 13px;
-    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
 }
 #example-link {
     text-align: center;
