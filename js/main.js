@@ -244,6 +244,8 @@ async function handleFileUpload(file) {
     
     uploadArea.style.display = 'none';
     if (exampleLink) exampleLink.style.display = 'none';
+    const demoBtn = document.getElementById('demo-btn');
+    if (demoBtn) demoBtn.style.display = 'none';
     loadingContainer.style.display = 'block';
     loadingBar.style.width = '10%';
     
