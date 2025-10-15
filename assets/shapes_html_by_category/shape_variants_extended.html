@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Shape Library - 56 Variants</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f0;
+            font-family: 'Menlo', monospace;
+            overflow: hidden;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #info {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="info">
+        <h2>DNA Shape Library</h2>
+        <p><strong>56 Total Shapes</strong> (7 families × 8 variants)</p>
+        <p>Scroll to zoom • Drag to rotate</p>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene, camera, renderer;
+        let shapes = [];
+        let mouseX = 0, mouseY = 0;
+        let targetRotationX = 0, targetRotationY = 0;
+        
+        const shapeConfigs = [
+            // TORUS - Origins (Row 1) - 8 variants
+            { family: 'torus', variant: 0, color: 0xFF6B9D, position: [-14, 8, 0] },
+            { family: 'torus', variant: 1, color: 0xFF6B9D, position: [-10, 8, 0] },
+            { family: 'torus', variant: 2, color: 0xFF6B9D, position: [-6, 8, 0] },
+            { family: 'torus', variant: 3, color: 0xFF6B9D, position: [-2, 8, 0] },
+            { family: 'torus', variant: 4, color: 0xFF6B9D, position: [2, 8, 0] },
+            { family: 'torus', variant: 5, color: 0xFF6B9D, position: [6, 8, 0] },
+            { family: 'torus', variant: 6, color: 0xFF6B9D, position: [10, 8, 0] },
+            { family: 'torus', variant: 7, color: 0xFF6B9D, position: [14, 8, 0] },
+            
+            // KNOT - Mind (Row 2) - 8 variants
+            { family: 'knot', variant: 0, color: 0x9B59B6, position: [-14, 4, 0] },
+            { family: 'knot', variant: 1, color: 0x9B59B6, position: [-10, 4, 0] },
+            { family: 'knot', variant: 2, color: 0x9B59B6, position: [-6, 4, 0] },
+            { family: 'knot', variant: 3, color: 0x9B59B6, position: [-2, 4, 0] },
+            { family: 'knot', variant: 4, color: 0x9B59B6, position: [2, 4, 0] },
+            { family: 'knot', variant: 5, color: 0x9B59B6, position: [6, 4, 0] },
+            { family: 'knot', variant: 6, color: 0x9B59B6, position: [10, 4, 0] },
+            { family: 'knot', variant: 7, color: 0x9B59B6, position: [14, 4, 0] },
+            
+            // SPIRAL - Performance (Row 3) - 8 variants
+            { family: 'spiral', variant: 0, color: 0x3498DB, position: [-14, 0, 0] },
+            { family: 'spiral', variant: 1, color: 0x3498DB, position: [-10, 0, 0] },
+            { family: 'spiral', variant: 2, color: 0x3498DB, position: [-6, 0, 0] },
+            { family: 'spiral', variant: 3, color: 0x3498DB, position: [-2, 0, 0] },
+            { family: 'spiral', variant: 4, color: 0x3498DB, position: [2, 0, 0] },
+            { family: 'spiral', variant: 5, color: 0x3498DB, position: [6, 0, 0] },
+            { family: 'spiral', variant: 6, color: 0x3498DB, position: [10, 0, 0] },
+            { family: 'spiral', variant: 7, color: 0x3498DB, position: [14, 0, 0] },
+            
+            // CRYSTAL - Nutrition (Row 4) - 8 variants
+            { family: 'crystal', variant: 0, color: 0x1ABC9C, position: [-14, -4, 0] },
+            { family: 'crystal', variant: 1, color: 0x1ABC9C, position: [-10, -4, 0] },
+            { family: 'crystal', variant: 2, color: 0x1ABC9C, position: [-6, -4, 0] },
+            { family: 'crystal', variant: 3, color: 0x1ABC9C, position: [-2, -4, 0] },
+            { family: 'crystal', variant: 4, color: 0x1ABC9C, position: [2, -4, 0] },
+            { family: 'crystal', variant: 5, color: 0x1ABC9C, position: [6, -4, 0] },
+            { family: 'crystal', variant: 6, color: 0x1ABC9C, position: [10, -4, 0] },
+            { family: 'crystal', variant: 7, color: 0x1ABC9C, position: [14, -4, 0] },
+            
+            // RIBBON - Health (Row 5) - 8 variants
+            { family: 'ribbon', variant: 0, color: 0xF39C12, position: [-14, -8, 0] },
+            { family: 'ribbon', variant: 1, color: 0xF39C12, position: [-10, -8, 0] },
+            { family: 'ribbon', variant: 2, color: 0xF39C12, position: [-6, -8, 0] },
+            { family: 'ribbon', variant: 3, color: 0xF39C12, position: [-2, -8, 0] },
+            { family: 'ribbon', variant: 4, color: 0xF39C12, position: [2, -8, 0] },
+            { family: 'ribbon', variant: 5, color: 0xF39C12, position: [6, -8, 0] },
+            { family: 'ribbon', variant: 6, color: 0xF39C12, position: [10, -8, 0] },
+            { family: 'ribbon', variant: 7, color: 0xF39C12, position: [14, -8, 0] },
+            
+            // STARBURST - Senses (Row 6) - 8 variants
+            { family: 'starburst', variant: 0, color: 0xE74C3C, position: [-14, -12, 0] },
+            { family: 'starburst', variant: 1, color: 0xE74C3C, position: [-10, -12, 0] },
+            { family: 'starburst', variant: 2, color: 0xE74C3C, position: [-6, -12, 0] },
+            { family: 'starburst', variant: 3, color: 0xE74C3C, position: [-2, -12, 0] },
+            { family: 'starburst', variant: 4, color: 0xE74C3C, position: [2, -12, 0] },
+            { family: 'starburst', variant: 5, color: 0xE74C3C, position: [6, -12, 0] },
+            { family: 'starburst', variant: 6, color: 0xE74C3C, position: [10, -12, 0] },
+            { family: 'starburst', variant: 7, color: 0xE74C3C, position: [14, -12, 0] },
+            
+            // TWISTED BOX - Longevity (Row 7) - 8 variants
+            { family: 'box', variant: 0, color: 0xC44569, position: [-14, -16, 0] },
+            { family: 'box', variant: 1, color: 0xC44569, position: [-10, -16, 0] },
+            { family: 'box', variant: 2, color: 0xC44569, position: [-6, -16, 0] },
+            { family: 'box', variant: 3, color: 0xC44569, position: [-2, -16, 0] },
+            { family: 'box', variant: 4, color: 0xC44569, position: [2, -16, 0] },
+            { family: 'box', variant: 5, color: 0xC44569, position: [6, -16, 0] },
+            { family: 'box', variant: 6, color: 0xC44569, position: [10, -16, 0] },
+            { family: 'box', variant: 7, color: 0xC44569, position: [14, -16, 0] }
+        ];
+        
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf5f5f0);
+            
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 25);
+            
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('canvas'),
+                antialias: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(10, 10, 10);
+            scene.add(directionalLight);
+            
+            shapeConfigs.forEach(config => {
+                const shape = createShape(config.family, config.variant, config.color);
+                shape.position.set(...config.position);
+                shape.scale.setScalar(0.6);
+                scene.add(shape);
+                shapes.push(shape);
+            });
+            
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('wheel', onWheel);
+            window.addEventListener('resize', onWindowResize);
+            
+            animate();
+        }
+        
+        function onMouseMove(event) {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            targetRotationY = mouseX * 0.3;
+            targetRotationX = mouseY * 0.3;
+        }
+        
+        function onWheel(event) {
+            camera.position.z += event.deltaY * 0.01;
+            camera.position.z = Math.max(15, Math.min(40, camera.position.z));
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += 0.005;
+                shape.rotation.y += 0.008;
+            });
+            
+            scene.rotation.y += (targetRotationY - scene.rotation.y) * 0.05;
+            scene.rotation.x += (targetRotationX - scene.rotation.x) * 0.05;
+            
+            renderer.render(scene, camera);
+        }
+        
+        function createShape(family, variant, color) {
+            const group = new THREE.Group();
+            const material = new THREE.MeshStandardMaterial({
+                color: color,
+                roughness: 0.3,
+                metalness: 0.6
+            });
+
+            if (family === 'torus') {
+                if (variant === 0) {
+                    group.add(new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.3, 16, 32), material));
+                } else if (variant === 1) {
+                    const geo = new THREE.TorusGeometry(0.8, 0.3, 16, 32);
+                    const pos = geo.attributes.position;
+                    for (let i = 0; i < pos.count; i++) {
+                        if (i % 3 === 0) {
+                            const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+                            const len = Math.sqrt(x*x + y*y + z*z);
+                            pos.setX(i, x / len * (len + 0.4));
+                            pos.setY(i, y / len * (len + 0.4));
+                            pos.setZ(i, z / len * (len + 0.4));
+                        }
+                    }
+                    geo.computeVertexNormals();
+                    group.add(new THREE.Mesh(geo, material));
+                } else if (variant === 2) {
+                    const t1 = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.15, 16, 32), material);
+                    const t2 = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.15, 16, 32), material);
+                    const t3 = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.15, 16, 32), material);
+                    t2.rotation.y = Math.PI / 3;
+                    t2.position.set(0.3, 0, 0.2);
+                    t3.rotation.y = -Math.PI / 3;
+                    t3.position.set(-0.3, 0, 0.2);
+                    group.add(t1, t2, t3);
+                } else if (variant === 3) {
+                    const path = new THREE.CatmullRomCurve3([
+                        new THREE.Vector3(0.8, 0, 0),
+                        new THREE.Vector3(0, 0, 0.8),
+                        new THREE.Vector3(-0.8, 0, 0),
+                        new THREE.Vector3(0, 0, -0.8),
+                        new THREE.Vector3(0.8, 0, 0)
+                    ], true);
+                    const shape = new THREE.Shape();
+                    shape.moveTo(-0.15, -0.15);
+                    shape.lineTo(0.15, -0.15);
+                    shape.lineTo(0.15, 0.15);
+                    shape.lineTo(-0.15, 0.15);
+                    const geo = new THREE.ExtrudeGeometry(shape, {
+                        steps: 64,
+                        bevelEnabled: false,
+                        extrudePath: path
+                    });
+                    group.add(new THREE.Mesh(geo, material));
+                } else if (variant === 4) {
+                    for (let i = 0; i < 24; i++) {
+                        const angle = (i / 24) * Math.PI * 2;
+                        const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.6, 8), material);
+                        bar.position.set(Math.cos(angle) * 0.8, 0, Math.sin(angle) * 0.8);
+                        bar.rotation.x = Math.PI / 2;
+                        group.add(bar);
+                    }
+                } else if (variant === 5) {
+                    for (let i = 0; i < 48; i++) {
+                        const t = i / 48;
+                        const mainAngle = t * Math.PI * 2;
+                        const twistAngle = t * Math.PI * 8;
+                        const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), material);
+                        const mainRadius = 0.75;
+                        const ropeRadius = 0.22;
+                        sphere.position.set(
+                            (mainRadius + Math.cos(twistAngle) * ropeRadius) * Math.cos(mainAngle),
+                            Math.sin(twistAngle) * ropeRadius,
+                            (mainRadius + Math.cos(twistAngle) * ropeRadius) * Math.sin(mainAngle)
+                        );
+                        group.add(sphere);
+                    }
+                } else if (variant === 6) {
+                    const mainRadius = 0.7;
+                    const helixRadius = 0.2;
+                    for (let i = 0; i < 64; i++) {
+                        const t = i / 64;
+                        const angle = t * Math.PI * 2;
+                        const helixAngle = t * Math.PI * 6;
+                        const sphere1 = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), material);
+                        sphere1.position.set(
+                            (mainRadius + Math.cos(helixAngle) * helixRadius) * Math.cos(angle),
+                            Math.sin(helixAngle) * helixRadius,
+                            (mainRadius + Math.cos(helixAngle) * helixRadius) * Math.sin(angle)
+                        );
+                        const sphere2 = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), material);
+                        sphere2.position.set(
+                            (mainRadius + Math.cos(helixAngle + Math.PI) * helixRadius) * Math.cos(angle),
+                            Math.sin(helixAngle + Math.PI) * helixRadius,
+                            (mainRadius + Math.cos(helixAngle + Math.PI) * helixRadius) * Math.sin(angle)
+                        );
+                        group.add(sphere1, sphere2);
+                    }
+                } else if (variant === 7) {
+                    for (let i = 0; i < 16; i++) {
+                        const startAngle = (i / 16) * Math.PI * 2;
+                        const endAngle = startAngle + Math.PI / 10;
+                        const segment = new THREE.TorusGeometry(0.8, 0.28, 8, 16, endAngle - startAngle);
+                        const mesh = new THREE.Mesh(segment, material);
+                        mesh.rotation.z = startAngle;
+                        group.add(mesh);
+                    }
+                }
+            }
+            
+            else if (family === 'knot') {
+                const params = [[2,3], [3,4], [5,2], [3,2], [3,7], [4,3], [7,2], [2,5]];
+                const [p, q] = params[variant];
+                if (variant < 5) {
+                    group.add(new THREE.Mesh(new THREE.TorusKnotGeometry(0.6, 0.22, 64, 8, p, q), material));
+                } else if (variant === 5) {
+                    const k1 = new THREE.Mesh(new THREE.TorusKnotGeometry(0.5, 0.15, 64, 8, p, q), material);
+                    const k2 = new THREE.Mesh(new THREE.TorusKnotGeometry(0.5, 0.15, 64, 8, q, p), material);
+                    k2.rotation.x = Math.PI / 4;
+                    group.add(k1, k2);
+                } else if (variant === 6) {
+                    for (let strand = 0; strand < 3; strand++) {
+                        const offset = (strand / 3) * Math.PI * 2;
+                        for (let i = 0; i < 48; i++) {
+                            const t = i / 48;
+                            const angle = t * Math.PI * 2 * p;
+                            const radius = 0.6;
+                            const braidRadius = 0.18;
+                            const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.075, 8, 8), material);
+                            sphere.position.set(
+                                (radius + Math.cos(angle * q + offset) * braidRadius) * Math.cos(angle),
+                                Math.sin(angle * q + offset) * braidRadius,
+                                (radius + Math.cos(angle * q + offset) * braidRadius) * Math.sin(angle)
+                            );
+                            group.add(sphere);
+                        }
+                    }
+                } else if (variant === 7) {
+                    const points = [];
+                    for (let i = 0; i <= 128; i++) {
+                        const t = (i / 128) * Math.PI * 2;
+                        points.push(new THREE.Vector3(
+                            0.9 * Math.sin(t),
+                            0.5 * Math.sin(t * 2),
+                            0.9 * Math.cos(t)
+                        ));
+                    }
+                    const path = new THREE.CatmullRomCurve3(points, true);
+                    const tubeGeo = new THREE.TubeGeometry(path, 128, 0.18, 12, true);
+                    group.add(new THREE.Mesh(tubeGeo, material));
+                }
+            }
+            
+            else if (family === 'spiral') {
+                const sphereGeo = new THREE.SphereGeometry(0.12, 12, 12);
+                const count = 50;
+                
+                for (let i = 0; i < count; i++) {
+                    const t = i / count;
+                    
+                    if (variant === 0) {
+                        const angle = t * Math.PI * 6;
+                        const radius = t * 0.9;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, (t - 0.5) * 2.2, Math.sin(angle) * radius);
+                        group.add(s);
+                    } else if (variant === 1) {
+                        const angle = t * Math.PI * 6;
+                        const y = (t - 0.5) * 3;
+                        const s1 = new THREE.Mesh(sphereGeo, material);
+                        s1.position.set(Math.cos(angle) * 0.45, y, Math.sin(angle) * 0.45);
+                        const s2 = new THREE.Mesh(sphereGeo, material);
+                        s2.position.set(Math.cos(angle + Math.PI) * 0.45, y, Math.sin(angle + Math.PI) * 0.45);
+                        group.add(s1, s2);
+                    } else if (variant === 2) {
+                        const angle = t * Math.PI * 8;
+                        const radius = Math.pow(1.1, t * 10) * 0.15;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, t * 0.75 - 0.35, Math.sin(angle) * radius);
+                        group.add(s);
+                    } else if (variant === 3) {
+                        const angle = t * Math.PI * 10;
+                        const radius = t * 1.2;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, (1 - t) * 2.2 - 1.1, Math.sin(angle) * radius);
+                        group.add(s);
+                    } else if (variant === 4) {
+                        const phi = (1 + Math.sqrt(5)) / 2;
+                        const angle = i * phi * Math.PI * 2;
+                        const radius = Math.sqrt(t) * 1.2;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, (t - 0.5) * 1.8, Math.sin(angle) * radius);
+                        group.add(s);
+                    } else if (variant === 5) {
+                        const angle = t * Math.PI * 5;
+                        const radius = t * 0.8;
+                        const wave = Math.sin(t * Math.PI * 12) * 0.3;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, wave, Math.sin(angle) * radius);
+                        group.add(s);
+                    } else if (variant === 6) {
+                        for (let h = 0; h < 3; h++) {
+                            const offset = (h / 3) * Math.PI * 2;
+                            const angle = t * Math.PI * 5 + offset;
+                            const s = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), material);
+                            s.position.set(Math.cos(angle) * 0.4, (t - 0.5) * 2.5, Math.sin(angle) * 0.4);
+                            group.add(s);
+                        }
+                    } else if (variant === 7) {
+                        const angle = t * Math.PI * 8;
+                        const radius = (1 - t) * 1.0;
+                        const s = new THREE.Mesh(sphereGeo, material);
+                        s.position.set(Math.cos(angle) * radius, (t - 0.5) * 2.0, Math.sin(angle) * radius);
+                        group.add(s);
+                    }
+                }
+            }
+            
+            else if (family === 'crystal') {
+                material.flatShading = true;
+                if (variant === 0) {
+                    const geo = new THREE.OctahedronGeometry(1, 0);
+                    const pos = geo.attributes.position;
+                    for (let i = 0; i < pos.count; i++) pos.setY(i, pos.getY(i) * 1.3);
+                    geo.computeVertexNormals();
+                    group.add(new THREE.Mesh(geo, material));
+                } else if (variant === 1) {
+                    group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.9, 0), material));
+                } else if (variant === 2) {
+                    group.add(new THREE.Mesh(new THREE.DodecahedronGeometry(0.9, 0), material));
+                } else if (variant === 3) {
+                    const geo = new THREE.IcosahedronGeometry(0.75, 0);
+                    const pos = geo.attributes.position;
+                    for (let i = 0; i < pos.count; i++) {
+                        const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+                        const len = Math.sqrt(x*x + y*y + z*z);
+                        pos.setX(i, x / len * 1.2);
+                        pos.setY(i, y / len * 1.2);
+                        pos.setZ(i, z / len * 1.2);
+                    }
+                    geo.computeVertexNormals();
+                    group.add(new THREE.Mesh(geo, material));
+                } else if (variant === 4) {
+                    group.add(new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 1.8, 6), material));
+                } else if (variant === 5) {
+                    const top = new THREE.Mesh(new THREE.ConeGeometry(0.7, 1.0, 8), material);
+                    top.position.y = 0.5;
+                    const bottom = new THREE.Mesh(new THREE.ConeGeometry(0.7, 1.0, 8), material);
+                    bottom.position.y = -0.5;
+                    bottom.rotation.z = Math.PI;
+                    group.add(top, bottom);
+                } else if (variant === 6) {
+                    const center = new THREE.Mesh(new THREE.OctahedronGeometry(0.4, 0), material);
+                    group.add(center);
+                    for (let i = 0; i < 6; i++) {
+                        const angle = (i / 6) * Math.PI * 2;
+                        const spike = new THREE.Mesh(new THREE.OctahedronGeometry(0.2, 0), material);
+                        spike.position.set(Math.cos(angle) * 0.7, 0, Math.sin(angle) * 0.7);
+                        spike.scale.set(0.5, 2, 0.5);
+                        group.add(spike);
+                    }
+                } else if (variant === 7) {
+                    for (let i = 0; i < 7; i++) {
+                        const angle = (i / 7) * Math.PI * 2;
+                        const radius = i === 0 ? 0 : 0.5;
+                        const height = i === 0 ? 1.2 : 0.8;
+                        const crystal = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.25, height, 6), material);
+                        crystal.position.set(Math.cos(angle) * radius, i === 0 ? 0 : -0.2, Math.sin(angle) * radius);
+                        group.add(crystal);
+                    }
+                }
+            }
+            
+            else if (family === 'ribbon') {
+                const segments = 40;
+                const boxGeo = new THREE.BoxGeometry(0.22, 0.08, 0.6);
+                
+                for (let i = 0; i < segments; i++) {
+                    const t = i / segments;
+                    const angle = t * Math.PI * 2;
+                    const box = new THREE.Mesh(variant === 2 ? new THREE.BoxGeometry(0.15, 0.08, 0.45) : boxGeo, material);
+                    
+                    if (variant === 0) {
+                        const twist = t * Math.PI;
+                        box.position.set(Math.cos(angle) * 0.9, Math.sin(twist) * 0.3, Math.sin(angle) * 0.9);
+                        box.rotation.set(twist, angle, 0);
+                    } else if (variant === 1) {
+                        const wave = Math.sin(t * Math.PI * 4) * 0.45;
+                        box.position.set(Math.cos(angle) * 0.9, wave, Math.sin(angle) * 0.9);
+                        box.rotation.y = angle;
+                    } else if (variant === 2) {
+                        const angle2 = angle + Math.PI / 3;
+                        box.position.set(Math.cos(angle) * 0.75, Math.sin(t * Math.PI * 6) * 0.3, Math.sin(angle) * 0.75);
+                        const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.08, 0.45), material);
+                        box2.position.set(Math.cos(angle2) * 0.75, -Math.sin(t * Math.PI * 6) * 0.3, Math.sin(angle2) * 0.75);
+                        group.add(box2);
+                    } else if (variant === 3) {
+                        const twist = angle / 2;
+                        box.position.set(Math.cos(angle) * 0.9, Math.sin(twist) * 0.22, Math.sin(angle) * 0.9);
+                        box.rotation.set(twist, angle, 0);
+                    } else if (variant === 4) {
+                        const fold = Math.abs(Math.sin(t * Math.PI * 8)) * 0.6;
+                        box.position.set(Math.cos(angle) * (0.9 + fold), 0, Math.sin(angle) * (0.9 + fold));
+                        box.rotation.set(0, angle, fold);
+                    } else if (variant === 5) {
+                        const zigzag = Math.sin(t * Math.PI * 10) * 0.35;
+                        box.position.set(Math.cos(angle) * 0.85, zigzag, Math.sin(angle) * 0.85);
+                        box.rotation.set(zigzag, angle, t * Math.PI * 2);
+                    } else if (variant === 6) {
+                        const spiral = t * 1.5 - 0.75;
+                        box.position.set(Math.cos(angle) * (0.7 - t * 0.3), spiral, Math.sin(angle) * (0.7 - t * 0.3));
+                        box.rotation.set(t * Math.PI, angle, 0);
+                    } else if (variant === 7) {
+                        const twist = t * Math.PI;
+                        const radius = 0.8;
+                        box.position.set(
+                            Math.cos(angle) * (radius + Math.cos(twist) * 0.15),
+                            Math.sin(twist) * 0.15,
+                            Math.sin(angle) * (radius + Math.cos(twist) * 0.15)
+                        );
+                        box.rotation.set(twist, angle, 0);
+                    }
+                    group.add(box);
+                }
+            }
+            
+            else if (family === 'starburst') {
+                group.add(new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), material));
+                
+                if (variant === 0) {
+                    for (let i = 0; i < 12; i++) {
+                        const angle = (i / 12) * Math.PI * 2;
+                        const spike = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.03, 1.2, 8), material);
+                        spike.position.set(Math.cos(angle) * 0.3, 0, Math.sin(angle) * 0.3);
+                        spike.rotation.set(0, angle, Math.PI / 2);
+                        group.add(spike);
+                    }
+                } else if (variant === 1) {
+                    for (let i = 0; i < 16; i++) {
+                        const angle = (i / 16) * Math.PI * 2;
+                        const ray = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 1.35), material);
+                        ray.position.set(Math.cos(angle) * 0.68, 0, Math.sin(angle) * 0.68);
+                        ray.rotation.y = angle;
+                        group.add(ray);
+                    }
+                } else if (variant === 2) {
+                    for (let i = 0; i < 8; i++) {
+                        const angle = (i / 8) * Math.PI * 2;
+                        const spike = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.015, 0.9, 6), material);
+                        spike.position.set(Math.cos(angle) * 0.3, 0, Math.sin(angle) * 0.3);
+                        spike.rotation.set(0, angle, Math.PI / 2);
+                        group.add(spike);
+                        
+                        const endX = Math.cos(angle) * 0.75, endZ = Math.sin(angle) * 0.75;
+                        for (let j = 0; j < 3; j++) {
+                            const subAngle = angle + (j - 1) * Math.PI / 6;
+                            const subSpike = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.015, 0.36, 6), material);
+                            subSpike.position.set(endX, 0, endZ);
+                            subSpike.rotation.set(0, subAngle, Math.PI / 2);
+                            group.add(subSpike);
+                        }
+                    }
+                } else if (variant === 3) {
+                    for (let i = 0; i < 12; i++) {
+                        const angle = (i / 12) * Math.PI * 2;
+                        const height = i % 2 === 0 ? 1.35 : 0.9;
+                        const spike = new THREE.Mesh(new THREE.ConeGeometry(0.12, height, 8), material);
+                        spike.position.set(Math.cos(angle) * 0.45, height / 2, Math.sin(angle) * 0.45);
+                        group.add(spike);
+                    }
+                } else if (variant === 4) {
+                    material.flatShading = true;
+                    for (let i = 0; i < 10; i++) {
+                        const angle = (i / 10) * Math.PI * 2;
+                        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.22, 0), material);
+                        crystal.position.set(Math.cos(angle) * 0.6, 0, Math.sin(angle) * 0.6);
+                        crystal.rotation.y = angle;
+                        group.add(crystal);
+                    }
+                } else if (variant === 5) {
+                    for (let i = 0; i < 6; i++) {
+                        const angle = (i / 6) * Math.PI * 2;
+                        const spikeUp = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.0, 8), material);
+                        spikeUp.position.set(Math.cos(angle) * 0.25, 0.5, Math.sin(angle) * 0.25);
+                        const spikeDown = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.0, 8), material);
+                        spikeDown.position.set(Math.cos(angle) * 0.25, -0.5, Math.sin(angle) * 0.25);
+                        spikeDown.rotation.z = Math.PI;
+                        group.add(spikeUp, spikeDown);
+                    }
+                } else if (variant === 6) {
+                    for (let i = 0; i < 10; i++) {
+                        const angle = (i / 10) * Math.PI * 2;
+                        for (let j = 0; j < 8; j++) {
+                            const t = j / 8;
+                            const curve = Math.sin(t * Math.PI) * 0.25;
+                            const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), material);
+                            sphere.position.set(
+                                Math.cos(angle) * (0.3 + t * 0.6) + curve,
+                                0,
+                                Math.sin(angle) * (0.3 + t * 0.6)
+                            );
+                            group.add(sphere);
+                        }
+                    }
+                } else if (variant === 7) {
+                    for (let layer = 0; layer < 3; layer++) {
+                        const numSpikes = 8 - layer * 2;
+                        const offset = layer * Math.PI / numSpikes;
+                        for (let i = 0; i < numSpikes; i++) {
+                            const angle = (i / numSpikes) * Math.PI * 2 + offset;
+                            const length = 1.0 - layer * 0.25;
+                            const spike = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, length, 8), material);
+                            spike.position.set(Math.cos(angle) * 0.2, layer * 0.3 - 0.3, Math.sin(angle) * 0.2);
+                            spike.rotation.set(0, angle, Math.PI / 2);
+                            group.add(spike);
+                        }
+                    }
+                }
+            }
+            
+            else if (family === 'box') {
+                const layers = 8;
+                for (let i = 0; i < (variant === 3 ? layers * 2 : layers); i++) {
+                    const t = i / (variant === 3 ? layers * 2 : layers);
+                    let box;
+                    
+                    if (variant === 0) {
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.22, 0.9), material);
+                        box.position.y = (t - 0.5) * 1.8;
+                        box.rotation.y = t * Math.PI / 2;
+                    } else if (variant === 1) {
+                        const angle = t * Math.PI * 3;
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.22, 0.75), material);
+                        box.position.set(Math.cos(angle) * 0.45, (t - 0.5) * 1.8, Math.sin(angle) * 0.45);
+                        box.rotation.y = angle;
+                    } else if (variant === 2) {
+                        box = new THREE.Mesh(new THREE.BoxGeometry(1.05 - t * 0.3, 0.18, 1.05 - t * 0.3), material);
+                        box.position.y = (t - 0.5) * 1.95;
+                        box.rotation.y = t * Math.PI;
+                    } else if (variant === 3) {
+                        const angle = t * Math.PI * 4;
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.15, 0.45), material);
+                        box.position.set(Math.cos(angle) * 0.52, (t - 0.5) * 2.1, Math.sin(angle) * 0.52);
+                        box.rotation.y = angle;
+                    } else if (variant === 4) {
+                        const offset = (i % 2) * 0.45;
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.22, 0.75), material);
+                        box.position.set(offset, (t - 0.5) * 1.8, 0);
+                        box.rotation.y = t * Math.PI / 4;
+                    } else if (variant === 5) {
+                        const wave = Math.sin(t * Math.PI * 3) * 0.4;
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.2, 0.8), material);
+                        box.position.set(wave, (t - 0.5) * 1.9, 0);
+                        box.rotation.set(0, t * Math.PI / 3, wave * 0.5);
+                    } else if (variant === 6) {
+                        box = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.18, 0.7), material);
+                        const crossOffset = (i % 2) * 0.35;
+                        box.position.set(crossOffset, (t - 0.5) * 1.85, -crossOffset);
+                        box.rotation.y = t * Math.PI / 2 + (i % 2) * Math.PI / 4;
+                    } else if (variant === 7) {
+                        const pulse = Math.abs(Math.sin(t * Math.PI * 2));
+                        const size = 0.6 + pulse * 0.4;
+                        box = new THREE.Mesh(new THREE.BoxGeometry(size, 0.2, size), material);
+                        box.position.y = (t - 0.5) * 2.0;
+                        box.rotation.y = t * Math.PI * 1.5;
+                    }
+                    group.add(box);
+                }
+            }
+            
+            return group;
+        }
+        
+        init();
+    </script>
+</body>
+</html>
+                
